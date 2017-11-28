@@ -224,26 +224,40 @@ void display(void)
     }
 
     //board
+    glPushMatrix(); //push board
     Board b;
     b.drawBoard();
 
-    glPushMatrix(); //pieces
+    glPushMatrix(); //king
     glColor3f(0.7, 0.1, 0.2);
     glScalef(2, 2, 2);
     glTranslatef(1, 2, 1);
-
     glCallList(kingObj);	//draw the 3D mesh
     glPopMatrix();
 
 
-    glPushMatrix(); //pieces
+    glPushMatrix(); //PAWN
     glColor3f(0.1, 0.3, 0.7);
     glScalef(2, 2, 2);
     glTranslatef(2, 2, 1);
-
     glCallList(pawnObj);	//draw the 3D mesh
     glPopMatrix();
-    
+
+    glPushMatrix(); //PAWN
+    glColor3f(0.1, 0.3, 0.7);
+    glScalef(2, 2, 2);
+    glTranslatef(2, 3, 1);
+    glCallList(pawnObj);	//draw the 3D mesh
+    glPopMatrix();
+
+    glPushMatrix(); //pieces
+    glColor3f(0.1, 0.3, 0.7);
+    glScalef(2, 2, 2);
+    glTranslatef(2.5, 2, 1);
+    glCallList(pawnObj);	//draw the 3D mesh
+    glPopMatrix();
+
+    glPopMatrix();//pop board
 
     glutSwapBuffers();
 }
