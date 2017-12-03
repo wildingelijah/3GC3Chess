@@ -37,6 +37,9 @@ int camTrack = 0;
 
 int kingObj;
 int pawnObj;
+int bishopObj;
+int queenObj;
+int rookObj;
 
 
 
@@ -216,6 +219,29 @@ void display(void)
     glCallList(kingObj);	//draw the 3D mesh
     glPopMatrix();
 
+	glPushMatrix(); //queen
+    glColor3f(0.5, 0.5, 0.5);
+    glScalef(2, 2, 2);
+    glTranslatef(1, 3, 1);
+    glCallList(queenObj);	//draw the 3D mesh
+    glPopMatrix();
+
+
+	glPushMatrix(); //bishop
+    glColor3f(0.2, 0.8, 0.3);
+    glScalef(2, 2, 2);
+    glTranslatef(1, 2, 2);
+    glCallList(bishopObj);	//draw the 3D mesh
+    glPopMatrix();
+
+
+	glPushMatrix(); //rook
+    glColor3f(0.7, 0.8, 0.1);
+    glScalef(2, 2, 2);
+    glTranslatef(2, 3, 3);
+    glCallList(rookObj);	//draw the 3D mesh
+    glPopMatrix();
+
 
     glPushMatrix(); //PAWN
     glColor3f(0.1, 0.3, 0.7);
@@ -255,6 +281,9 @@ void myInit(void)
 
     kingObj=loadObject("king.obj");	//load the king.obj file
     pawnObj=loadObject("pawn.obj");	//load the pawn.obj file
+	bishopObj=loadObject("bishop.obj");	//load the king.obj file
+    queenObj=loadObject("queen.obj");	//load the pawn.obj file
+	rookObj=loadObject("rook.obj");	//load the pawn.obj file
 
     //backface culling
     glFrontFace(GL_CCW);
