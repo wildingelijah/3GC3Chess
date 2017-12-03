@@ -50,13 +50,13 @@ struct face{ //face can be made from quad or triangle
 	int facenum;
 	bool four;
 	int faces[4];
-	face(int facen,int f1,int f2,int f3) : facenum(facen){	//constructor for triangle
+	face(int f1,int f2,int f3){	//constructor for triangle
 		faces[0]=f1;
 		faces[1]=f2;
 		faces[2]=f3;
 		four=false;
 	}
-	face(int facen,int f1,int f2,int f3,int f4) : facenum(facen){ //constructor for quads
+	face(int f1,int f2,int f3,int f4){ //constructor for quads
 		faces[0]=f1;
 		faces[1]=f2;
 		faces[2]=f3;
@@ -93,14 +93,14 @@ int loadObject(const char* filename)
 			vertex.push_back(new coordinate(tmpx,tmpy,tmpz));	// push to vertex vector
 		}else if((*coord[i])[0]=='f')	//if face
 		{
-			int a,b,c,d,e;
+			int normal,a,b,c,d;
 			if(count(coord[i]->begin(),coord[i]->end(),' ')==3)	//if it is a triangle
 			{
-		  sscanf(coord[i]->c_str(),"f %d//%d %d//%d %d//%d",&a,&b,&c,&b,&d,&b);
-				faces.push_back(new face(b,a,c,d));	//push to face vector
+		  sscanf(coord[i]->c_str(),"f %d//%d %d//%d %d//%d",&a,&normal,&b,&normal,&c,&normal);
+				faces.push_back(new face(a,b,c));	//push to face vector
 			}else{
-				sscanf(coord[i]->c_str(),"f %d//%d %d//%d %d//%d %d//%d",&a,&b,&c,&b,&d,&b,&e,&b); //quads
-				faces.push_back(new face(b,a,c,d,e));	//push to face vector
+				sscanf(coord[i]->c_str(),"f %d//%d %d//%d %d//%d %d//%d",&a,&normal,&b,&normal,&c,&normal,&d,&normal); //quads
+				faces.push_back(new face(a,b,c,d));	//push to face vector
 			}
 		}
 	}
