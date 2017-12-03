@@ -40,6 +40,7 @@ int pawnObj;
 int bishopObj;
 int queenObj;
 int rookObj;
+int knightObj;
 
 
 
@@ -226,6 +227,13 @@ void display(void)
     glCallList(queenObj);	//draw the 3D mesh
     glPopMatrix();
 
+	glPushMatrix(); //knight
+    glColor3f(0.9, 0.1, 0.5);
+    glScalef(0.5, 1, 0.5);
+    glTranslatef(2, 0.5, 3);
+    glCallList(knightObj);	//draw the 3D mesh
+    glPopMatrix();
+
 
 	glPushMatrix(); //bishop
     glColor3f(0.2, 0.8, 0.3);
@@ -284,6 +292,7 @@ void myInit(void)
 	bishopObj=loadObject("bishop.obj");	//load the king.obj file
     queenObj=loadObject("queen.obj");	//load the pawn.obj file
 	rookObj=loadObject("rook.obj");	//load the pawn.obj file
+	knightObj=loadObject("knightNoTexture.obj");	//load the pawn.obj file
 
     //backface culling
     glFrontFace(GL_CCW);
