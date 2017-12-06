@@ -357,6 +357,7 @@ void display(void)
     }
 
     //board
+<<<<<<< HEAD
     squares[0] = Square(0,0,rookObj,0,0,0);
 	squares[1] = Square(-1,0,knightObj,0,1,0);
 	squares[2] = Square(-2,0,bishopObj,0,0,0);
@@ -452,6 +453,61 @@ void display(void)
 	}
 
 	selectedObj(selected);
+=======
+    glPushMatrix(); //push board
+    Board b;
+    b.drawBoard();
+    glPopMatrix();
+
+    glPushMatrix();
+    glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
+        float lightColour[]={1.0,1.0,1.0,1.0};
+        glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
+
+
+    glPushMatrix(); //king
+    glScalef(2, 2, 2);
+    glTranslatef(1, 2, 2);
+    glCallList(kingObj); //draw the 3D mesh
+    glPopMatrix();
+
+	glPushMatrix(); //queen
+    glScalef(2, 2, 2);
+    glTranslatef(1, 3, 1);
+    glCallList(queenObj);	//draw the 3D mesh
+    glPopMatrix();
+
+	glPushMatrix(); //knight
+    glScalef(0.5, 1, 0.5);
+    glTranslatef(2, 0.5, 3);
+    glCallList(knightObj);	//draw the 3D mesh
+    glPopMatrix();
+
+
+	glPushMatrix(); //bishop
+    glScalef(2, 2, 2);
+    glTranslatef(1, 2, 1);
+    glCallList(bishopObj);	//draw the 3D mesh
+    glPopMatrix();
+
+
+	glPushMatrix(); //rook
+    glScalef(2, 2, 2);
+    glTranslatef(2, 3, 3);
+    glCallList(rookObj);	//draw the 3D mesh
+    glPopMatrix();
+
+
+    glPushMatrix(); //PAWN
+    glScalef(2, 2, 2);
+    glTranslatef(2, 2, 1);
+    glCallList(pawnObj);	//draw the 3D mesh
+    glPopMatrix();
+
+    glPopMatrix();
+
+>>>>>>> light fix
     glutSwapBuffers();
 }
 
@@ -472,10 +528,7 @@ void myInit(void)
 	rookObj=loadObject("rook.obj");	//load the pawn.obj file
 	knightObj=loadObject("knightNoTexture.obj");	//load the pawn.obj file
 //************lighting*****************
- glEnable(GL_LIGHTING);
-        glEnable(GL_LIGHT0);
-        float lightColour[]={1.0,1.0,1.0,1.0};
-        glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
+ 
 
         //********************************************
     //backface culling
