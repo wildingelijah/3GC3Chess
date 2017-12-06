@@ -230,7 +230,13 @@ void display(void)
     glPushMatrix(); //push board
     Board b;
     b.drawBoard();
-    glPopMatrix();   
+    glPopMatrix();
+
+    glPushMatrix();
+    glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
+        float lightColour[]={1.0,1.0,1.0,1.0};
+        glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
 
 
     glPushMatrix(); //king
@@ -272,6 +278,8 @@ void display(void)
     glCallList(pawnObj);	//draw the 3D mesh
     glPopMatrix();
 
+    glPopMatrix();
+
     glutSwapBuffers();
 }
 
@@ -292,10 +300,7 @@ void myInit(void)
 	rookObj=loadObject("rook.obj");	//load the pawn.obj file
 	knightObj=loadObject("knightNoTexture.obj");	//load the pawn.obj file
 //************lighting*****************
- glEnable(GL_LIGHTING);
-        glEnable(GL_LIGHT0);
-        float lightColour[]={1.0,1.0,1.0,1.0};
-        glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
+ 
 
         //********************************************
     //backface culling
