@@ -341,7 +341,10 @@ void display(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    
+    float lightPos[] = {-1.0,1.0, -2.0, 1.0 };
+
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+
     //create camera viewing transformations
     if (camTrack == 0){
         gluLookAt(camPos[0], camPos[1], camPos[2], -3.5,0,-3.5, 0,1,0);
@@ -449,12 +452,6 @@ void display(void)
 	}
 
 	selectedObj(selected);
-	// glPushMatrix(); //push board
-    // Board b;
-    // b.drawBoard();
-
-    // glPopMatrix();//pop board
-
     glutSwapBuffers();
 }
 
@@ -474,7 +471,13 @@ void myInit(void)
     queenObj=loadObject("queen.obj");	//load the pawn.obj file
 	rookObj=loadObject("rook.obj");	//load the pawn.obj file
 	knightObj=loadObject("knightNoTexture.obj");	//load the pawn.obj file
+//************lighting*****************
+ glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
+        float lightColour[]={1.0,1.0,1.0,1.0};
+        glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
 
+        //********************************************
     //backface culling
     glFrontFace(GL_CCW);
     glCullFace(GL_BACK);
