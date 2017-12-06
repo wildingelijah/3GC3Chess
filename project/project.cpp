@@ -211,7 +211,10 @@ void display(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    
+    float lightPos[] = {-1.0,1.0, -2.0, 1.0 };
+
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+
     //create camera viewing transformations
     if (camTrack == 0){
         gluLookAt(camPos[0], camPos[1], camPos[2], 0,0,0, 0,1,0);
@@ -227,23 +230,22 @@ void display(void)
     glPushMatrix(); //push board
     Board b;
     b.drawBoard();
+    glPopMatrix();   
+
 
     glPushMatrix(); //king
-    glColor3f(0.7, 0.1, 0.2);
     glScalef(2, 2, 2);
-    glTranslatef(1, 2, 1);
-    glCallList(kingObj);	//draw the 3D mesh
+    glTranslatef(1, 2, 2);
+    glCallList(kingObj); //draw the 3D mesh
     glPopMatrix();
 
 	glPushMatrix(); //queen
-    glColor3f(0.5, 0.5, 0.5);
     glScalef(2, 2, 2);
     glTranslatef(1, 3, 1);
     glCallList(queenObj);	//draw the 3D mesh
     glPopMatrix();
 
 	glPushMatrix(); //knight
-    glColor3f(0.9, 0.1, 0.5);
     glScalef(0.5, 1, 0.5);
     glTranslatef(2, 0.5, 3);
     glCallList(knightObj);	//draw the 3D mesh
@@ -251,15 +253,13 @@ void display(void)
 
 
 	glPushMatrix(); //bishop
-    glColor3f(0.2, 0.8, 0.3);
     glScalef(2, 2, 2);
-    glTranslatef(1, 2, 2);
+    glTranslatef(1, 2, 1);
     glCallList(bishopObj);	//draw the 3D mesh
     glPopMatrix();
 
 
 	glPushMatrix(); //rook
-    glColor3f(0.7, 0.8, 0.1);
     glScalef(2, 2, 2);
     glTranslatef(2, 3, 3);
     glCallList(rookObj);	//draw the 3D mesh
@@ -267,27 +267,10 @@ void display(void)
 
 
     glPushMatrix(); //PAWN
-    glColor3f(0.1, 0.3, 0.7);
     glScalef(2, 2, 2);
     glTranslatef(2, 2, 1);
     glCallList(pawnObj);	//draw the 3D mesh
     glPopMatrix();
-
-    glPushMatrix(); //PAWN
-    glColor3f(0.1, 0.3, 0.7);
-    glScalef(2, 2, 2);
-    glTranslatef(2, 3, 1);
-    glCallList(pawnObj);	//draw the 3D mesh
-    glPopMatrix();
-
-    glPushMatrix(); //pieces
-    glColor3f(0.1, 0.3, 0.7);
-    glScalef(2, 2, 2);
-    glTranslatef(2.5, 2, 1);
-    glCallList(pawnObj);	//draw the 3D mesh
-    glPopMatrix();
-
-    glPopMatrix();//pop board
 
     glutSwapBuffers();
 }
@@ -308,7 +291,13 @@ void myInit(void)
     queenObj=loadObject("queen.obj");	//load the pawn.obj file
 	rookObj=loadObject("rook.obj");	//load the pawn.obj file
 	knightObj=loadObject("knightNoTexture.obj");	//load the pawn.obj file
+//************lighting*****************
+ glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
+        float lightColour[]={1.0,1.0,1.0,1.0};
+        glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
 
+        //********************************************
     //backface culling
     glFrontFace(GL_CCW);
     glCullFace(GL_BACK);
