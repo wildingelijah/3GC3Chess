@@ -23,15 +23,13 @@
 #include<cstdio>
 
 
-
-
 //*********
 
 //all variable initialization
 
 float camPos[] = {10, 15, 10};
-float pl1Cam[] = {-0.5,20,10};
-float pl2Cam[] = {-0.5,20,-10};
+float pl1Cam[] = {-3.5,20,10};
+float pl2Cam[] = {-3.5,20,-10};
 
 int camTrack = 0;
 
@@ -42,9 +40,26 @@ int queenObj;
 int rookObj;
 int knightObj;
 
+int board[8][8];
 
+Square* squares = new Square[64];
+
+// const int start[8][8] = {rookObj, knightObj, bishopObj, queenObj, kingObj, bishopObj, knightObj, rookObj, pawnObj, 
+//                         pawnObj, pawnObj, pawnObj, pawnObj, pawnObj, pawnObj, pawnObj, 0, 0, 0, 0, 0, 0, 0, 0, 
+//                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -pawnObj,
+//                         -pawnObj, -pawnObj, -pawnObj, -pawnObj, -pawnObj, -pawnObj, -pawnObj, -rookObj, -knightObj, 
+//                         -bishopObj, -queenObj, -kingObj, -bishopObj, -knightObj, -rookObj};
 
 //********************************************************************
+
+// void setupBoard(void){
+//     for (int i = 0; i < 8; i++){
+//         for (int j = 0; j < 8; j++){
+//             board[i][j] = start[i][j];
+//         }
+//     }
+// }
+
 struct coordinate{ //for vertices
 	float x,y,z;
 	coordinate(float a,float b,float c) : x(a),y(b),z(c) {};
@@ -199,80 +214,103 @@ void display(void)
     
     //create camera viewing transformations
     if (camTrack == 0){
-        gluLookAt(camPos[0], camPos[1], camPos[2], 0,0,0, 0,1,0);
+        gluLookAt(camPos[0], camPos[1], camPos[2], -3.5,0,-3.5, 0,1,0);
     }
     else if (camTrack == 1){
-        gluLookAt(pl1Cam[0], pl1Cam[1], pl1Cam[2], -0.5,0,-0.5, 0,1,0);
+        gluLookAt(pl1Cam[0], pl1Cam[1], pl1Cam[2], -3.5,0,-3.5, 0,1,0);
     }
     else if (camTrack == 2){
-        gluLookAt(pl2Cam[0], pl2Cam[1], pl2Cam[2], -0.5,0,-0.5, 0,1,0);
+        gluLookAt(pl2Cam[0], pl2Cam[1], pl2Cam[2], -3.5,0,-3.5, 0,1,0);
     }
 
     //board
-    glPushMatrix(); //push board
-    Board b;
-    b.drawBoard();
+    squares[0] = Square(0,0,rookObj,0,0,0);
+	squares[1] = Square(-1,0,knightObj,0,1,0);
+	squares[2] = Square(-2,0,bishopObj,0,0,0);
+	squares[3] = Square(-3,0,queenObj,0,1,0);
+	squares[4] = Square(-4,0,kingObj,0,0,0);
+	squares[5] = Square(-5,0,bishopObj,0,1,0);
+	squares[6] = Square(-6,0,knightObj,0,0,0);
+	squares[7] = Square(-7,0,rookObj,0,1,0);
 
-    glPushMatrix(); //king
-    glColor3f(0.7, 0.1, 0.2);
-    glScalef(2, 2, 2);
-    glTranslatef(1, 2, 1);
-    glCallList(kingObj);	//draw the 3D mesh
-    glPopMatrix();
+	squares[8] = Square(0,-1,pawnObj,0,1,0);
+	squares[9] = Square(-1,-1,pawnObj,0,0,0);
+	squares[10] = Square(-2,-1,pawnObj,0,1,0);
+	squares[11] = Square(-3,-1,pawnObj,0,0,0);
+	squares[12] = Square(-4,-1,pawnObj,0,1,0);
+	squares[13] = Square(-5,-1,pawnObj,0,0,0);
+	squares[14] = Square(-6,-1,pawnObj,0,1,0);
+	squares[15] = Square(-7,-1,pawnObj,0,0,0);
 
-	glPushMatrix(); //queen
-    glColor3f(0.5, 0.5, 0.5);
-    glScalef(2, 2, 2);
-    glTranslatef(1, 3, 1);
-    glCallList(queenObj);	//draw the 3D mesh
-    glPopMatrix();
+	squares[16] = Square(0,-2,0,0,0,0);
+	squares[17] = Square(-1,-2,0,0,1,0);
+	squares[18] = Square(-2,-2,0,0,0,0);
+	squares[19] = Square(-3,-2,0,0,1,0);
+	squares[20] = Square(-4,-2,0,0,0,0);
+	squares[21] = Square(-5,-2,0,0,1,0);
+	squares[22] = Square(-6,-2,0,0,0,0);
+	squares[23] = Square(-7,-2,0,0,1,0);
 
-	glPushMatrix(); //knight
-    glColor3f(0.9, 0.1, 0.5);
-    glScalef(0.5, 1, 0.5);
-    glTranslatef(2, 0.5, 3);
-    glCallList(knightObj);	//draw the 3D mesh
-    glPopMatrix();
+	squares[24] = Square(0,-3,0,0,1,0);
+	squares[25] = Square(-1,-3,0,0,0,0);
+	squares[26] = Square(-2,-3,0,0,1,0);
+	squares[27] = Square(-3,-3,0,0,0,0);
+	squares[28] = Square(-4,-3,0,0,1,0);
+	squares[29] = Square(-5,-3,0,0,0,0);
+	squares[30] = Square(-6,-3,0,0,1,0);
+	squares[31] = Square(-7,-3,0,0,0,0);
 
+	squares[32] = Square(0,-4,0,0,0,0);
+	squares[33] = Square(-1,-4,0,0,1,0);
+	squares[34] = Square(-2,-4,0,0,0,0);
+	squares[35] = Square(-3,-4,0,0,1,0);
+	squares[36] = Square(-4,-4,0,0,0,0);
+	squares[37] = Square(-5,-4,0,0,1,0);
+	squares[38] = Square(-6,-4,0,0,0,0);
+	squares[39] = Square(-7,-4,0,0,1,0);
 
-	glPushMatrix(); //bishop
-    glColor3f(0.2, 0.8, 0.3);
-    glScalef(2, 2, 2);
-    glTranslatef(1, 2, 2);
-    glCallList(bishopObj);	//draw the 3D mesh
-    glPopMatrix();
+	squares[40] = Square(0,-5,0,0,1,0);
+	squares[41] = Square(-1,-5,0,0,0,0);
+	squares[42] = Square(-2,-5,0,0,1,0);
+	squares[43] = Square(-3,-5,0,0,0,0);
+	squares[44] = Square(-4,-5,0,0,1,0);
+	squares[45] = Square(-5,-5,0,0,0,0);
+	squares[46] = Square(-6,-5,0,0,1,0);
+	squares[47] = Square(-7,-5,0,0,0,0);
 
+	squares[48] = Square(0,-6,pawnObj,1,0,0);
+	squares[49] = Square(-1,-6,pawnObj,1,1,0);
+	squares[50] = Square(-2,-6,pawnObj,1,0,0);
+	squares[51] = Square(-3,-6,pawnObj,1,1,0);
+	squares[52] = Square(-4,-6,pawnObj,1,0,0);
+	squares[53] = Square(-5,-6,pawnObj,1,1,0);
+	squares[54] = Square(-6,-6,pawnObj,1,0,0);
+	squares[55] = Square(-7,-6,pawnObj,1,1,0);
 
-	glPushMatrix(); //rook
-    glColor3f(0.7, 0.8, 0.1);
-    glScalef(2, 2, 2);
-    glTranslatef(2, 3, 3);
-    glCallList(rookObj);	//draw the 3D mesh
-    glPopMatrix();
+	squares[56] = Square(0,-7,rookObj,1,1,0);
+	squares[57] = Square(-1,-7,knightObj,1,0,0);
+	squares[58] = Square(-2,-7,bishopObj,1,1,0);
+	squares[59] = Square(-3,-7,queenObj,1,0,0);
+	squares[60] = Square(-4,-7,kingObj,1,1,0);
+	squares[61] = Square(-5,-7,bishopObj,1,0,0);
+	squares[62] = Square(-6,-7,knightObj,1,1,0);
+	squares[63] = Square(-7,-7,rookObj,1,0,0);
+	
+	for (int i = 0; i < squares.size();i++){
+		glPushMatrix();
+			glColor3f(squares->colour(),squares[i].colour(),squares[i].colour());
+    		glScalef(1,0.40,1);
+    		glutSolidCube(1);
+		glPopMatrix();
 
+	}
 
-    glPushMatrix(); //PAWN
-    glColor3f(0.1, 0.3, 0.7);
-    glScalef(2, 2, 2);
-    glTranslatef(2, 2, 1);
-    glCallList(pawnObj);	//draw the 3D mesh
-    glPopMatrix();
+	// glPushMatrix(); //push board
+    // Board b;
+    // b.drawBoard();
+	
 
-    glPushMatrix(); //PAWN
-    glColor3f(0.1, 0.3, 0.7);
-    glScalef(2, 2, 2);
-    glTranslatef(2, 3, 1);
-    glCallList(pawnObj);	//draw the 3D mesh
-    glPopMatrix();
-
-    glPushMatrix(); //pieces
-    glColor3f(0.1, 0.3, 0.7);
-    glScalef(2, 2, 2);
-    glTranslatef(2.5, 2, 1);
-    glCallList(pawnObj);	//draw the 3D mesh
-    glPopMatrix();
-
-    glPopMatrix();//pop board
+    // glPopMatrix();//pop board
 
     glutSwapBuffers();
 }
