@@ -29,7 +29,7 @@
 
 float camPos[] = {10, 15, 10};
 float pl1Cam[] = {-3.5,20,10};
-float pl2Cam[] = {-3.5,20,-15};
+float pl2Cam[] = {-3.5,20,-17};
 
 int camTrack = 0;
 
