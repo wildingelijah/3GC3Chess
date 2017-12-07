@@ -217,6 +217,10 @@ void special(int key, int x, int y){
 //valid intersection calculations for our rays
 void interCalc(){
 
+	//plus 40 to x if player 1 and minus 40 if player 2
+	int xmousetemp = xmouse + 40;
+	int ymousetemp = ymouse - 60;
+
       GLdouble matlOfModel[16], matlOfProj[16], ray0[3], ray1[3], rayD[3];
       GLint matlView[4];
 
@@ -224,9 +228,9 @@ void interCalc(){
       glGetDoublev(GL_PROJECTION_MATRIX, matlOfProj);
       glGetIntegerv(GL_VIEWPORT, matlView);
 
-      gluUnProject(xmouse, ymouse, 0.0, matlOfModel, matlOfProj, matlView, &ray0[0], &ray0[1], &ray0[2]);
+      gluUnProject(xmousetemp, ymousetemp, 0.0, matlOfModel, matlOfProj, matlView, &ray0[0], &ray0[1], &ray0[2]);
 
-      gluUnProject(xmouse, ymouse, 1.0, matlOfModel, matlOfProj, matlView, &ray1[0], &ray1[1], &ray1[2]);
+      gluUnProject(xmousetemp, ymousetemp, 1.0, matlOfModel, matlOfProj, matlView, &ray1[0], &ray1[1], &ray1[2]);
 
       rayD[0] = ray1[0] - ray0[0];
       rayD[1] = ray1[1] - ray0[1];
@@ -320,26 +324,8 @@ void FPS(int val){
       glutPostRedisplay();
       glutTimerFunc(17, FPS, 0);
 }
-
-void display(void)
-{
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    
-    //create camera viewing transformations
-    if (camTrack == 0){
-        gluLookAt(camPos[0], camPos[1], camPos[2], -3.5,0,-3.5, 0,1,0);
-    }
-    else if (camTrack == 1){
-        gluLookAt(pl1Cam[0], pl1Cam[1], pl1Cam[2], -3.5,0,-3.5, 0,1,0);
-    }
-    else if (camTrack == 2){
-        gluLookAt(pl2Cam[0], pl2Cam[1], pl2Cam[2], -3.5,0,-3.5, 0,1,0);
-    }
-
-    //board
-    squares[0] = Square(0,0,rookObj,0,0,0);
+void makeBoard(void){
+	 squares[0] = Square(0,0,rookObj,0,0,0);
 	squares[1] = Square(-1,0,knightObj,0,1,0);
 	squares[2] = Square(-2,0,bishopObj,0,0,0);
 	squares[3] = Square(-3,0,queenObj,0,1,0);
@@ -410,6 +396,101 @@ void display(void)
 	squares[61] = Square(-5,-7,bishopObj,1,0,0);
 	squares[62] = Square(-6,-7,knightObj,1,1,0);
 	squares[63] = Square(-7,-7,rookObj,1,0,0);
+}
+
+void display(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+	float lightPos[] = {-1.0, 1.0, 2.0, -1.0};
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+    
+    //create camera viewing transformations
+    if (camTrack == 0){
+        gluLookAt(camPos[0], camPos[1], camPos[2], -3.5,0,-3.5, 0,1,0);
+    }
+    else if (camTrack == 1){
+        gluLookAt(pl1Cam[0], pl1Cam[1], pl1Cam[2], -3.5,0,-3.5, 0,1,0);
+    }
+    else if (camTrack == 2){
+        gluLookAt(pl2Cam[0], pl2Cam[1], pl2Cam[2], -3.5,0,-3.5, 0,1,0);
+    }
+
+    //board
+    // squares[0] = Square(0,0,rookObj,0,0,0);
+	// squares[1] = Square(-1,0,knightObj,0,1,0);
+	// squares[2] = Square(-2,0,bishopObj,0,0,0);
+	// squares[3] = Square(-3,0,queenObj,0,1,0);
+	// squares[4] = Square(-4,0,kingObj,0,0,0);
+	// squares[5] = Square(-5,0,bishopObj,0,1,0);
+	// squares[6] = Square(-6,0,knightObj,0,0,0);
+	// squares[7] = Square(-7,0,rookObj,0,1,0);
+
+	// squares[8] = Square(0,-1,pawnObj,0,1,0);
+	// squares[9] = Square(-1,-1,pawnObj,0,0,0);
+	// squares[10] = Square(-2,-1,pawnObj,0,1,0);
+	// squares[11] = Square(-3,-1,pawnObj,0,0,0);
+	// squares[12] = Square(-4,-1,pawnObj,0,1,0);
+	// squares[13] = Square(-5,-1,pawnObj,0,0,0);
+	// squares[14] = Square(-6,-1,pawnObj,0,1,0);
+	// squares[15] = Square(-7,-1,pawnObj,0,0,0);
+
+	// squares[16] = Square(0,-2,0,0,0,0);
+	// squares[17] = Square(-1,-2,0,0,1,0);
+	// squares[18] = Square(-2,-2,0,0,0,0);
+	// squares[19] = Square(-3,-2,0,0,1,0);
+	// squares[20] = Square(-4,-2,0,0,0,0);
+	// squares[21] = Square(-5,-2,0,0,1,0);
+	// squares[22] = Square(-6,-2,0,0,0,0);
+	// squares[23] = Square(-7,-2,0,0,1,0);
+
+	// squares[24] = Square(0,-3,0,0,1,0);
+	// squares[25] = Square(-1,-3,0,0,0,0);
+	// squares[26] = Square(-2,-3,0,0,1,0);
+	// squares[27] = Square(-3,-3,0,0,0,0);
+	// squares[28] = Square(-4,-3,0,0,1,0);
+	// squares[29] = Square(-5,-3,0,0,0,0);
+	// squares[30] = Square(-6,-3,0,0,1,0);
+	// squares[31] = Square(-7,-3,0,0,0,0);
+
+	// squares[32] = Square(0,-4,0,0,0,0);
+	// squares[33] = Square(-1,-4,0,0,1,0);
+	// squares[34] = Square(-2,-4,0,0,0,0);
+	// squares[35] = Square(-3,-4,0,0,1,0);
+	// squares[36] = Square(-4,-4,0,0,0,0);
+	// squares[37] = Square(-5,-4,0,0,1,0);
+	// squares[38] = Square(-6,-4,0,0,0,0);
+	// squares[39] = Square(-7,-4,0,0,1,0);
+
+	// squares[40] = Square(0,-5,0,0,1,0);
+	// squares[41] = Square(-1,-5,0,0,0,0);
+	// squares[42] = Square(-2,-5,0,0,1,0);
+	// squares[43] = Square(-3,-5,0,0,0,0);
+	// squares[44] = Square(-4,-5,0,0,1,0);
+	// squares[45] = Square(-5,-5,0,0,0,0);
+	// squares[46] = Square(-6,-5,0,0,1,0);
+	// squares[47] = Square(-7,-5,0,0,0,0);
+
+	// squares[48] = Square(0,-6,pawnObj,1,0,0);
+	// squares[49] = Square(-1,-6,pawnObj,1,1,0);
+	// squares[50] = Square(-2,-6,pawnObj,1,0,0);
+	// squares[51] = Square(-3,-6,pawnObj,1,1,0);
+	// squares[52] = Square(-4,-6,pawnObj,1,0,0);
+	// squares[53] = Square(-5,-6,pawnObj,1,1,0);
+	// squares[54] = Square(-6,-6,pawnObj,1,0,0);
+	// squares[55] = Square(-7,-6,pawnObj,1,1,0);
+
+	// squares[56] = Square(0,-7,rookObj,1,1,0);
+	// squares[57] = Square(-1,-7,knightObj,1,0,0);
+	// squares[58] = Square(-2,-7,bishopObj,1,1,0);
+	// squares[59] = Square(-3,-7,queenObj,1,0,0);
+	// squares[60] = Square(-4,-7,kingObj,1,1,0);
+	// squares[61] = Square(-5,-7,bishopObj,1,0,0);
+	// squares[62] = Square(-6,-7,knightObj,1,1,0);
+	// squares[63] = Square(-7,-7,rookObj,1,0,0);
+
 	
 	for (int i = 0; i < 64; i++){
 		glPushMatrix();
@@ -419,8 +500,15 @@ void display(void)
     		glutSolidCube(1);
 		glPopMatrix();
 
+		
+
 		if (squares[i].getPiece() != 0){
 			glPushMatrix();
+
+			glEnable(GL_LIGHTING);
+			glEnable(GL_LIGHT0);
+			float lightColour[] = {1.0,1.0,1.0,1.0};
+			glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColour);
 				if (squares[i].getTeam() == 0){
 					glColor3f(0,0,0);
 				}
@@ -429,6 +517,7 @@ void display(void)
 				}
 				glTranslatef(squares[i].getX(),0.3,squares[i].getZ());
 				glCallList(squares[i].getPiece());
+			glDisable(GL_LIGHTING);
 			glPopMatrix();
 		}
 	}
@@ -453,12 +542,12 @@ void myInit(void)
     glLoadIdentity();
     gluPerspective(45, 1, 1, 400);
 
-    kingObj=loadObject("king.obj");	//load the king.obj file
-    pawnObj=loadObject("pawn.obj");	//load the pawn.obj file
-	bishopObj=loadObject("bishop.obj");	//load the king.obj file
-    queenObj=loadObject("queen.obj");	//load the pawn.obj file
-	rookObj=loadObject("rook.obj");	//load the pawn.obj file
-	knightObj=loadObject("knightNoTexture.obj");	//load the pawn.obj file
+    kingObj=loadObject("kingblessnew.obj");	//load the king.obj file
+    pawnObj=loadObject("pawnblessnew.obj");	//load the pawn.obj file
+	bishopObj=loadObject("bishopblessnew.obj");	//load the king.obj file
+    queenObj=loadObject("queenblessnew.obj");	//load the pawn.obj file
+	rookObj=loadObject("rookblessnew.obj");	//load the pawn.obj file
+	knightObj=loadObject("knightblessnew.obj");	//load the pawn.obj file
 
     //backface culling
     glFrontFace(GL_CCW);
@@ -474,7 +563,7 @@ int main(int argc, char** argv)
     glutInitWindowPosition(0, 0);
     glutCreateWindow("Chess Bois");	//creates the window
     //below is print out to terminal with all info needed to use program
-
+	//makeBoard();
     glutDisplayFunc(display); //registers "display" as the display callback function
     glutKeyboardFunc(keyboard);	
     glutSpecialFunc(special);
@@ -484,6 +573,7 @@ int main(int argc, char** argv)
     glEnable(GL_DEPTH_TEST);
 
     myInit();
+	makeBoard();
     glutMainLoop();	//starts the event loop
 
 	return(0);					//return may not be necessary on all compilers
