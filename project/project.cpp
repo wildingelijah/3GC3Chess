@@ -33,6 +33,9 @@ float pl2Cam[] = {-3.5,20,-15};
 
 int camTrack = 0;
 
+GLfloat light_diffuse[] = {1.0, 1.0, 1.0, 0.0};  /* white diffuse light. */
+GLfloat light_position[] = {0.0, 1.0, 0.0, 0.0};  /* Infinite light location. */
+
 int xmouse = 0;
 int ymouse = 0;
 
@@ -519,6 +522,8 @@ void interCalc(){
 
 //drawing wireframe for object selected
 void selectedObj(int type){
+	glDisable(GL_LIGHTING);
+
       glPushMatrix();
       float x = squares[type].getX();
       float y = 0.3;
@@ -559,6 +564,8 @@ void selectedObj(int type){
             glVertex3f(wire, -wire, wire);           
       glEnd();
       glPopMatrix();
+
+	  glEnable(GL_LIGHTING);
 
 }
 
@@ -657,9 +664,6 @@ void display(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
-	float lightPos[] = {-1.0, 1.0, 2.0, -1.0};
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
     
     //create camera viewing transformations
     if (camTrack == 0){
@@ -669,6 +673,8 @@ void display(void)
         gluLookAt(pl2Cam[0], pl2Cam[1], pl2Cam[2], -3.5,0,-3.5, 0,1,0);
     }
 	
+	glEnable(GL_COLOR_MATERIAL);
+
 	for (int i = 0; i < 64; i++){
 		glPushMatrix();
 			if (squares[i].getHighlight() == 1){
@@ -682,13 +688,11 @@ void display(void)
     		glutSolidCube(1);
 		glPopMatrix();
 
+		
 		if (squares[i].getPiece() != 0){
+			glDisable(GL_LIGHTING);
 			glPushMatrix();
 
-			glEnable(GL_LIGHTING);
-			glEnable(GL_LIGHT0);
-			float lightColour[] = {1.0,1.0,1.0,1.0};
-			glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColour);
 				if (squares[i].getTeam() == 0){
 					glColor3f(0,0,0);
 				}
@@ -696,12 +700,13 @@ void display(void)
 					glColor3f(1,1,1);
 				}
 				glTranslatef(squares[i].getX(),0.3,squares[i].getZ());
+				glScalef(1.5,1.5,1.5);
 				glCallList(squares[i].getPiece());
-			glDisable(GL_LIGHTING);
 			glPopMatrix();
+			glEnable(GL_LIGHTING);
 		}
 	}
-
+	
 	teapotangle++;
 	teapot2angle++;
 	teapot2angle++;
@@ -746,6 +751,8 @@ void display(void)
 		glPopMatrix();
 	glPopMatrix();
 
+	glDisable(GL_COLOR_MATERIAL);
+
 	selectedObj(selected);
 	// glPushMatrix(); //push board
     // Board b;
@@ -762,6 +769,11 @@ void myInit(void)
 	glClearColor(0.8, 0.8, 1, 1);
     glColor3f(1, 1, 1);
 
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHTING);
+
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(45, 1, 1, 400);
@@ -777,6 +789,8 @@ void myInit(void)
     glFrontFace(GL_CCW);
     glCullFace(GL_BACK);
     glEnable(GL_CULL_FACE);
+
+
 }
 
 int main(int argc, char** argv)
