@@ -80,16 +80,16 @@ struct coordinate{ //for vertices
 };
 
 struct face{ //face can be made from quad or triangle
-	int facenum;
+	int faceN;
 	bool four;
 	int faces[4];
-	face(int f1,int f2,int f3){	//constructor for triangle
+	face(int facen, int f1,int f2,int f3) : faceN(facen){	//constructor for triangle
 		faces[0]=f1;
 		faces[1]=f2;
 		faces[2]=f3;
 		four=false;
 	}
-	face(int f1,int f2,int f3,int f4){ //constructor for quads
+	face(int facen, int f1,int f2,int f3,int f4) : faceN(facen){ //constructor for quads
 		faces[0]=f1;
 		faces[1]=f2;
 		faces[2]=f3;
@@ -103,6 +103,7 @@ int loadObject(const char* filename)
 	std::vector<std::string*> coord;//every single line of the obj file as a string
 	std::vector<coordinate*> vertex;
 	std::vector<face*> faces;
+	std::vector<coordinate*> normals;
 	std::ifstream in(filename);	//open the .obj file
 	if(!in.is_open())	//if not opened, exit with -1
 	{
@@ -124,16 +125,24 @@ int loadObject(const char* filename)
 			float tmpx,tmpy,tmpz;
 			sscanf(coord[i]->c_str(),"v %f %f %f",&tmpx,&tmpy,&tmpz);	//store to 3 variables tmpx,tmpy,tmpz
 			vertex.push_back(new coordinate(tmpx,tmpy,tmpz));	// push to vertex vector
-		}else if((*coord[i])[0]=='f')	//if face
+		}
+		else if((*coord[i])[0]=='v' && (*coord[i])[1]=='n')	//if vector & not vn
+		{
+			float tmpx,tmpy,tmpz;
+			sscanf(coord[i]->c_str(),"vn %f %f %f",&tmpx,&tmpy,&tmpz);	//store to 3 variables tmpx,tmpy,tmpz
+			normals.push_back(new coordinate(tmpx,tmpy,tmpz));	// push to vertex vector
+		}
+		
+		else if((*coord[i])[0]=='f')	//if face
 		{
 			int normal,a,b,c,d;
 			if(count(coord[i]->begin(),coord[i]->end(),' ')==3)	//if it is a triangle
 			{
 		  sscanf(coord[i]->c_str(),"f %d//%d %d//%d %d//%d",&a,&normal,&b,&normal,&c,&normal);
-				faces.push_back(new face(a,b,c));	//push to face vector
+				faces.push_back(new face(normal,a,b,c));	//push to face vector
 			}else{
 				sscanf(coord[i]->c_str(),"f %d//%d %d//%d %d//%d %d//%d",&a,&normal,&b,&normal,&c,&normal,&d,&normal); //quads
-				faces.push_back(new face(a,b,c,d));	//push to face vector
+				faces.push_back(new face(normal, a,b,c,d));	//push to face vector
 			}
 		}
 	}
@@ -146,6 +155,7 @@ int loadObject(const char* filename)
         if (faces[i]->four) //quad
         {
 			glBegin(GL_QUADS);
+				glNormal3f(normals[faces[i]->faceN-1]->x,normals[faces[i]->faceN-1]->y,normals[faces[i]->faceN-1]->z);
 				glVertex3f(vertex[faces[i]->faces[0]-1]->x,vertex[faces[i]->faces[0]-1]->y,vertex[faces[i]->faces[0]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[1]-1]->x,vertex[faces[i]->faces[1]-1]->y,vertex[faces[i]->faces[1]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[2]-1]->x,vertex[faces[i]->faces[2]-1]->y,vertex[faces[i]->faces[2]-1]->z);
@@ -153,6 +163,7 @@ int loadObject(const char* filename)
 			glEnd();
 		}else{
 			glBegin(GL_TRIANGLES); //triangle
+				glNormal3f(normals[faces[i]->faceN-1]->x,normals[faces[i]->faceN-1]->y,normals[faces[i]->faceN-1]->z);
 				glVertex3f(vertex[faces[i]->faces[0]-1]->x,vertex[faces[i]->faces[0]-1]->y,vertex[faces[i]->faces[0]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[1]-1]->x,vertex[faces[i]->faces[1]-1]->y,vertex[faces[i]->faces[1]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[2]-1]->x,vertex[faces[i]->faces[2]-1]->y,vertex[faces[i]->faces[2]-1]->z);
@@ -167,6 +178,8 @@ int loadObject(const char* filename)
 		delete faces[i];
 	for(int i=0;i<vertex.size();i++)
 		delete vertex[i];
+	for(int i=0;i<normals.size();i++)
+		delete normals[i];
 	return num;	//return with the id
 }
 
@@ -690,11 +703,23 @@ void display(void)
 
 		
 		if (squares[i].getPiece() != 0){
-			glDisable(GL_LIGHTING);
+			// glDisable(GL_LIGHTING);
+			// glDisable(GL_COLOR_MATERIAL);
 			glPushMatrix();
 
 				if (squares[i].getTeam() == 0){
-					glColor3f(0,0,0);
+					
+					glColor3f(0.4,0.4,0.4);
+					// float m_ambient[4] = {0.24725, 0.1995, 0.0745, 1.0f};
+					// float m_diffuse[4] = {0.75164, 0.60648, 0.22648, 1.0f};
+					// float m_specular[4] = {0.628281, 0.555802, 0.366065, 1.0f};
+					// float m_shine[1] = {0.4};
+
+					// glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, m_ambient);
+					// glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, m_diffuse);
+					// glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, m_specular);
+					// glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, m_shine);
+					
 				}
 				else {
 					glColor3f(1,1,1);
@@ -702,8 +727,10 @@ void display(void)
 				glTranslatef(squares[i].getX(),0.3,squares[i].getZ());
 				glScalef(1.5,1.5,1.5);
 				glCallList(squares[i].getPiece());
+				// glEnable(GL_COLOR_MATERIAL);
 			glPopMatrix();
-			glEnable(GL_LIGHTING);
+			
+			// glEnable(GL_LIGHTING);
 		}
 	}
 	
