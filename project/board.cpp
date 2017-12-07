@@ -25,6 +25,24 @@ Square::Square(int x, int z, int piece,int team, int colour, int highlight){
     this->colour = colour;
     this->highlight = highlight;
 }
+int Square::getX(){
+    return x;
+}
+int Square::getZ(){
+    return z;
+}
+int Square::getPiece(){
+    return piece;
+}
+int Square::getTeam(){
+    return team;
+}
+int Square::getColour(){
+    return colour;
+}
+int Square::getHighlight(){
+    return highlight;
+}
 
 void Board::drawBoard(){
 	glPushMatrix();

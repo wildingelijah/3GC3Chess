@@ -33,6 +33,14 @@ float pl2Cam[] = {-3.5,20,-10};
 
 int camTrack = 0;
 
+int xmouse = 0;
+int ymouse = 0;
+
+float bOff = 1;
+int selected = 0;
+int select = 0;
+bool intersect = false;
+
 int kingObj;
 int pawnObj;
 int bishopObj;
@@ -206,6 +214,113 @@ void special(int key, int x, int y){
     glutPostRedisplay();
 }
 
+//valid intersection calculations for our rays
+void interCalc(){
+
+      GLdouble matlOfModel[16], matlOfProj[16], ray0[3], ray1[3], rayD[3];
+      GLint matlView[4];
+
+      glGetDoublev(GL_MODELVIEW_MATRIX, matlOfModel);
+      glGetDoublev(GL_PROJECTION_MATRIX, matlOfProj);
+      glGetIntegerv(GL_VIEWPORT, matlView);
+
+      gluUnProject(xmouse, ymouse, 0.0, matlOfModel, matlOfProj, matlView, &ray0[0], &ray0[1], &ray0[2]);
+
+      gluUnProject(xmouse, ymouse, 1.0, matlOfModel, matlOfProj, matlView, &ray1[0], &ray1[1], &ray1[2]);
+
+      rayD[0] = ray1[0] - ray0[0];
+      rayD[1] = ray1[1] - ray0[1];
+      rayD[2] = ray1[2] - ray0[2];
+
+      GLdouble m = sqrt(rayD[0]*rayD[0] + rayD[1]*rayD[1] + rayD[2]*rayD[2]);
+      rayD[0] /= m;
+      rayD[1] /= m;
+      rayD[2] /= m;
+
+      //calculatng the intersection point
+      for (int i = 0; i < 100; i++){
+            double pt[3];
+            double temp = (squares[i].getZ() - ray0[2]);
+            double t = temp/rayD[2];
+            pt[0] = ray0[0] + t * rayD[0];
+            pt[1] = ray0[1] + t * rayD[1];
+            pt[2] = squares[i].getZ();
+
+            //detect if point clicked is inside our wireframe
+            if (pt[1] > 0.3 - bOff && pt[2] < squares[i].getZ() + bOff && pt[0] > squares[i].getX() - bOff && 
+            pt[0] < squares[i].getX() + bOff && pt[1] < 0.3 + bOff && pt[2] > squares[i].getZ() - bOff){
+                  select = i;
+                  bOff = 1;
+                  intersect = true;
+            } 
+            else {
+                  intersect = false;
+            }
+      }
+}
+
+//drawing wireframe for object selected
+void selectedObj(int type){
+      glPushMatrix();
+      float x = squares[type].getX();
+      float y = 0.3;
+      float z = squares[type].getZ();
+      glColor3f(1, 0, 0);
+      glTranslatef(x, y, z);
+
+      //wireframe scaling
+      float wire = 0.5;
+
+      glBegin(GL_LINES);
+            glVertex3f(-wire, -wire, -wire);
+            glVertex3f(-wire, wire, -wire);
+            glVertex3f(-wire, -wire, -wire);
+            glVertex3f(-wire, -wire, wire);
+            glVertex3f(-wire, -wire, -wire);
+            glVertex3f(wire, -wire, -wire);
+            
+            glVertex3f(wire, wire, wire);
+            glVertex3f(wire, wire, -wire);
+            glVertex3f(wire, wire, wire);
+            glVertex3f(-wire, wire, wire);
+            glVertex3f(wire, wire, wire);
+            glVertex3f(wire, -wire, wire);
+
+            glVertex3f(-wire, -wire, wire);
+            glVertex3f(-wire, wire, wire);
+            glVertex3f(-wire, -wire, wire);
+            glVertex3f(wire, -wire, wire);
+            glVertex3f(-wire, wire, wire);
+            glVertex3f(-wire, wire, -wire);
+
+            glVertex3f(-wire, wire, -wire);
+            glVertex3f(wire, wire, -wire);
+            glVertex3f(wire, wire, -wire);
+            glVertex3f(wire, -wire, -wire);
+            glVertex3f(wire, -wire, -wire);
+            glVertex3f(wire, -wire, wire);           
+      glEnd();
+      glPopMatrix();
+
+}
+
+//handles mouse interaction and passes values to ray calculations
+void mouse(int btn, int state, int x, int y){
+      
+      xmouse = x;
+      ymouse = 800 - y;
+
+      if (btn == GLUT_LEFT_BUTTON && state == GLUT_UP){
+            selected = select;
+      } 
+      interCalc();
+}
+
+void FPS(int val){
+      glutPostRedisplay();
+      glutTimerFunc(17, FPS, 0);
+}
+
 void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -296,19 +411,32 @@ void display(void)
 	squares[62] = Square(-6,-7,knightObj,1,1,0);
 	squares[63] = Square(-7,-7,rookObj,1,0,0);
 	
-	for (int i = 0; i < squares.size();i++){
+	for (int i = 0; i < 64; i++){
 		glPushMatrix();
-			glColor3f(squares->colour(),squares[i].colour(),squares[i].colour());
+			glColor3f(squares[i].getColour(),squares[i].getColour(),squares[i].getColour());
     		glScalef(1,0.40,1);
+			glTranslatef(squares[i].getX(),0,squares[i].getZ());
     		glutSolidCube(1);
 		glPopMatrix();
 
+		if (squares[i].getPiece() != 0){
+			glPushMatrix();
+				if (squares[i].getTeam() == 0){
+					glColor3f(0,0,0);
+				}
+				else {
+					glColor3f(1,1,1);
+				}
+				glTranslatef(squares[i].getX(),0.3,squares[i].getZ());
+				glCallList(squares[i].getPiece());
+			glPopMatrix();
+		}
 	}
 
+	selectedObj(selected);
 	// glPushMatrix(); //push board
     // Board b;
     // b.drawBoard();
-	
 
     // glPopMatrix();//pop board
 
@@ -350,6 +478,8 @@ int main(int argc, char** argv)
     glutDisplayFunc(display); //registers "display" as the display callback function
     glutKeyboardFunc(keyboard);	
     glutSpecialFunc(special);
+	glutMouseFunc(mouse);
+	glutTimerFunc(0, FPS, 0);
 
     glEnable(GL_DEPTH_TEST);
 

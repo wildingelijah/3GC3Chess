@@ -5,6 +5,13 @@ class Square{
 public:
 	Square();
 	Square(int x, int z, int piece, int team, int colour, int highlight);
+	int getX();
+	int getZ();
+	int getPiece();
+	int getTeam();
+	int getHighlight();
+	int getColour();
+
 	int x;
 	int z;
 	int piece;
