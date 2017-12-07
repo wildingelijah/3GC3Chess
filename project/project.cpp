@@ -33,7 +33,6 @@ float pl2Cam[] = {-3.5,20,-10};
 
 int camTrack = 0;
 
-<<<<<<< HEAD
 int xmouse = 0;
 int ymouse = 0;
 
@@ -42,9 +41,8 @@ int selected = 0;
 int select = 0;
 bool intersect = false;
 
-=======
+
 int knightObj;
->>>>>>> fix knights
 int kingObj;
 int pawnObj;
 int bishopObj;
@@ -360,7 +358,6 @@ void display(void)
     }
 
     //board
-<<<<<<< HEAD
     squares[0] = Square(0,0,rookObj,0,0,0);
 	squares[1] = Square(-1,0,knightObj,0,1,0);
 	squares[2] = Square(-2,0,bishopObj,0,0,0);
@@ -456,57 +453,13 @@ void display(void)
 	}
 
 	selectedObj(selected);
-=======
-    glPushMatrix(); //push board
-    Board b;
-    b.drawBoard();
-    glPopMatrix();
 
-    glPushMatrix();
-    glEnable(GL_LIGHTING);
-        glEnable(GL_LIGHT0);
-        float lightColour[]={1.0,1.0,1.0,1.0};
-        glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
+    // glEnable(GL_LIGHTING);
+    //     glEnable(GL_LIGHT0);
+    //     float lightColour[]={1.0,1.0,1.0,1.0};
+    //     glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
 
         
-
-
-    glPushMatrix(); //king
-    glTranslatef(1, 2, 2);
-    glCallList(kingObj); //draw the 3D mesh
-    glPopMatrix();
-
-	glPushMatrix(); //queen
-    glTranslatef(1, 3, 1);
-    glCallList(queenObj);	//draw the 3D mesh
-    glPopMatrix();
-
-	glPushMatrix(); //rook
-    glTranslatef(2, 3, 3);
-    glCallList(rookObj);	//draw the 3D mesh
-    glPopMatrix();
-
-
-	glPushMatrix(); //bishop
-    glTranslatef(1, 2, 1);
-    glCallList(bishopObj);	//draw the 3D mesh
-    glPopMatrix();
-
-
-	glPushMatrix(); //knight
-    glTranslatef(2, 0.5, 3);
-    glCallList(knightObj);	//draw the 3D mesh
-    glPopMatrix();
-
-
-    glPushMatrix(); //PAWN
-    glTranslatef(2, 2, 1);
-    glCallList(pawnObj);	//draw the 3D mesh
-    glPopMatrix();
-
-    glPopMatrix();
-
->>>>>>> light fix
     glutSwapBuffers();
 }
 
