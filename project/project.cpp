@@ -33,6 +33,7 @@ float pl2Cam[] = {-3.5,20,-10};
 
 int camTrack = 0;
 
+<<<<<<< HEAD
 int xmouse = 0;
 int ymouse = 0;
 
@@ -41,12 +42,14 @@ int selected = 0;
 int select = 0;
 bool intersect = false;
 
+=======
+int knightObj;
+>>>>>>> fix knights
 int kingObj;
 int pawnObj;
 int bishopObj;
 int queenObj;
 int rookObj;
-int knightObj;
 
 int board[8][8];
 
@@ -465,6 +468,8 @@ void display(void)
         float lightColour[]={1.0,1.0,1.0,1.0};
         glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
 
+        
+
 
     glPushMatrix(); //king
     glScalef(2, 2, 2);
@@ -478,24 +483,24 @@ void display(void)
     glCallList(queenObj);	//draw the 3D mesh
     glPopMatrix();
 
-	glPushMatrix(); //knight
-    glScalef(0.5, 1, 0.5);
-    glTranslatef(2, 0.5, 3);
-    glCallList(knightObj);	//draw the 3D mesh
+	glPushMatrix(); //rook
+    glScalef(2, 2, 2);
+    glTranslatef(2, 3, 3);
+    glCallList(rookObj);	//draw the 3D mesh
     glPopMatrix();
 
 
 	glPushMatrix(); //bishop
-    glScalef(2, 2, 2);
+    //glScalef(2, 2, 2);
     glTranslatef(1, 2, 1);
     glCallList(bishopObj);	//draw the 3D mesh
     glPopMatrix();
 
 
-	glPushMatrix(); //rook
-    glScalef(2, 2, 2);
-    glTranslatef(2, 3, 3);
-    glCallList(rookObj);	//draw the 3D mesh
+	glPushMatrix(); //knight
+    //glScalef(0.5, 0.5, 0.5);
+    glTranslatef(2, 0.5, 3);
+    glCallList(knightObj);	//draw the 3D mesh
     glPopMatrix();
 
 
@@ -522,11 +527,11 @@ void myInit(void)
     gluPerspective(45, 1, 1, 400);
 
     kingObj=loadObject("king.obj");	//load the king.obj file
+    knightObj=loadObject("knightNoTexture.obj");	//load the pawn.obj file
     pawnObj=loadObject("pawn.obj");	//load the pawn.obj file
 	bishopObj=loadObject("bishop.obj");	//load the king.obj file
     queenObj=loadObject("queen.obj");	//load the pawn.obj file
 	rookObj=loadObject("rook.obj");	//load the pawn.obj file
-	knightObj=loadObject("knightNoTexture.obj");	//load the pawn.obj file
 //************lighting*****************
  
 
