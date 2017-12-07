@@ -342,6 +342,8 @@ void display(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 	//add light here
+	float lightPos[] = {-1.0,1.0, -2.0, 1.0 };
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
     
     //create camera viewing transformations
     if (camTrack == 0){
@@ -353,6 +355,11 @@ void display(void)
     else if (camTrack == 2){
         gluLookAt(pl2Cam[0], pl2Cam[1], pl2Cam[2], -3.5,0,-3.5, 0,1,0);
     }
+
+    glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
+        float lightColour[]={1.0,1.0,1.0,1.0};
+glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
 
     //board
     squares[0] = Square(0,0,rookObj,0,0,0);
