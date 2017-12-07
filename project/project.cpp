@@ -342,9 +342,8 @@ void display(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 	//add light here
-	float lightPos[] = {-1.0,1.0, -2.0, 1.0 };
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
-    
+	float lightPos[] = {-1.0, 1.0, 2.0, -1.0};
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);    
     //create camera viewing transformations
     if (camTrack == 0){
         gluLookAt(camPos[0], camPos[1], camPos[2], -3.5,0,-3.5, 0,1,0);
@@ -356,10 +355,10 @@ void display(void)
         gluLookAt(pl2Cam[0], pl2Cam[1], pl2Cam[2], -3.5,0,-3.5, 0,1,0);
     }
 
-    glEnable(GL_LIGHTING);
-        glEnable(GL_LIGHT0);
-        float lightColour[]={1.0,1.0,1.0,1.0};
-glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
+	glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+		float lightColour[]={1,1,1,1};
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColour);
 
     //board
     squares[0] = Square(0,0,rookObj,0,0,0);
@@ -451,6 +450,7 @@ glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColour);
 					glColor3f(1,1,1);
 				}
 				glTranslatef(squares[i].getX(),0.3,squares[i].getZ());
+			//glScalef(4,4,4);
 				glCallList(squares[i].getPiece());
 			glPopMatrix();
 		}
@@ -480,8 +480,8 @@ void myInit(void)
     pawnObj=loadObject("pawn.obj");	//load the pawn.obj file
 	bishopObj=loadObject("bishop.obj");	//load the king.obj file
     queenObj=loadObject("queen.obj");	//load the pawn.obj file
-	rookObj=loadObject("rook.obj");	//load the pawn.obj file
-	knightObj=loadObject("knight6.obj");	//load the pawn.obj file
+	rookObj=loadObject("rookNew.obj");	//load the pawn.obj file
+	knightObj=loadObject("rook.obj");	//load the pawn.obj file
 
     //backface culling
     glFrontFace(GL_CCW);
