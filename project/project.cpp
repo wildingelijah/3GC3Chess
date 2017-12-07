@@ -74,16 +74,16 @@ struct coordinate{ //for vertices
 };
 
 struct face{ //face can be made from quad or triangle
-	int facenum;
+	int faceN;
 	bool four;
 	int faces[4];
-	face(int f1,int f2,int f3){	//constructor for triangle
-		faces[0]=f1;
+    face(int facen, int f1, int f2, int f3) : faceN(facen){ //constructor for triangle
+        faces[0]=f1;
 		faces[1]=f2;
 		faces[2]=f3;
 		four=false;
 	}
-	face(int f1,int f2,int f3,int f4){ //constructor for quads
+	face(int facen, int f1,int f2,int f3,int f4) : faceN(facen){ //constructor for quads
 		faces[0]=f1;
 		faces[1]=f2;
 		faces[2]=f3;
@@ -97,6 +97,7 @@ int loadObject(const char* filename)
 	std::vector<std::string*> coord;//every single line of the obj file as a string
 	std::vector<coordinate*> vertex;
 	std::vector<face*> faces;
+    std::vector<coordinate*> normals; //normals for each vertex
 	std::ifstream in(filename);	//open the .obj file
 	if(!in.is_open())	//if not opened, exit with -1
 	{
@@ -118,16 +119,22 @@ int loadObject(const char* filename)
 			float tmpx,tmpy,tmpz;
 			sscanf(coord[i]->c_str(),"v %f %f %f",&tmpx,&tmpy,&tmpz);	//store to 3 variables tmpx,tmpy,tmpz
 			vertex.push_back(new coordinate(tmpx,tmpy,tmpz));	// push to vertex vector
-		}else if((*coord[i])[0]=='f')	//if face
+		}else if((*coord[i])[0]=='v' && (*coord[i])[1]=='n')	//if vn(vertex normal)
+        {
+            float tmpx,tmpy,tmpz;	//for each vertex coord
+			sscanf(coord[i]->c_str(),"vn %f %f %f",&tmpx,&tmpy,&tmpz);
+            normals.push_back(new coordinate(tmpx,tmpy,tmpz));	
+        }
+        else if((*coord[i])[0]=='f')	//if face
 		{
 			int normal,a,b,c,d;
 			if(count(coord[i]->begin(),coord[i]->end(),' ')==3)	//if it is a triangle
 			{
 		  sscanf(coord[i]->c_str(),"f %d//%d %d//%d %d//%d",&a,&normal,&b,&normal,&c,&normal);
-				faces.push_back(new face(a,b,c));	//push to face vector
+				faces.push_back(new face(normal, a,b,c));	//push to face vector
 			}else{
 				sscanf(coord[i]->c_str(),"f %d//%d %d//%d %d//%d %d//%d",&a,&normal,&b,&normal,&c,&normal,&d,&normal); //quads
-				faces.push_back(new face(a,b,c,d));	//push to face vector
+				faces.push_back(new face(normal, a,b,c,d));	//push to face vector
 			}
 		}
 	}
@@ -140,6 +147,9 @@ int loadObject(const char* filename)
         if (faces[i]->four) //quad
         {
 			glBegin(GL_QUADS);
+            //face number is linekd to index of each normal
+				glNormal3f(normals[faces[i]->faceN-1]->x,normals[faces[i]->faceN-1]->y,normals[faces[i]->faceN-1]->z);
+                //draw vertices to draw each face
 				glVertex3f(vertex[faces[i]->faces[0]-1]->x,vertex[faces[i]->faces[0]-1]->y,vertex[faces[i]->faces[0]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[1]-1]->x,vertex[faces[i]->faces[1]-1]->y,vertex[faces[i]->faces[1]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[2]-1]->x,vertex[faces[i]->faces[2]-1]->y,vertex[faces[i]->faces[2]-1]->z);
@@ -147,6 +157,9 @@ int loadObject(const char* filename)
 			glEnd();
 		}else{
 			glBegin(GL_TRIANGLES); //triangle
+            //face number is linekd to index of each normal
+				glNormal3f(normals[faces[i]->faceN-1]->x,normals[faces[i]->faceN-1]->y,normals[faces[i]->faceN-1]->z);
+                //draw vertices to draw each face
 				glVertex3f(vertex[faces[i]->faces[0]-1]->x,vertex[faces[i]->faces[0]-1]->y,vertex[faces[i]->faces[0]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[1]-1]->x,vertex[faces[i]->faces[1]-1]->y,vertex[faces[i]->faces[1]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[2]-1]->x,vertex[faces[i]->faces[2]-1]->y,vertex[faces[i]->faces[2]-1]->z);
@@ -154,13 +167,15 @@ int loadObject(const char* filename)
 		}
 	}
 	glEndList();
-	//delete everything to avoid memory leaks
+	//delete vectors after use to prevent memory leaks
 	for(int i=0;i<coord.size();i++)
 		delete coord[i];
 	for(int i=0;i<faces.size();i++)
 		delete faces[i];
 	for(int i=0;i<vertex.size();i++)
 		delete vertex[i];
+    for(int i=0;i<normals.size();i++)
+		delete normals[i];
 	return num;	//return with the id
 }
 
@@ -326,6 +341,7 @@ void display(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+	//add light here
     
     //create camera viewing transformations
     if (camTrack == 0){
@@ -458,7 +474,7 @@ void myInit(void)
 	bishopObj=loadObject("bishop.obj");	//load the king.obj file
     queenObj=loadObject("queen.obj");	//load the pawn.obj file
 	rookObj=loadObject("rook.obj");	//load the pawn.obj file
-	knightObj=loadObject("knightNoTexture.obj");	//load the pawn.obj file
+	knightObj=loadObject("knight6.obj");	//load the pawn.obj file
 
     //backface culling
     glFrontFace(GL_CCW);
