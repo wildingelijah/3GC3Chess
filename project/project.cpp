@@ -38,7 +38,7 @@ int ymouse = 0;
 
 float bOff = 1;
 int selected = 0;
-int select = 0;
+int selectPiece = 0;
 bool intersect = false;
 
 int kingObj;
@@ -195,7 +195,7 @@ void checkPiece(int select){
 		if (squares[select+8].getPiece() == 0){
 			squares[select+8].setHighlight(1);
 		}
-		if(squares[select+16].getPiece() == 0 && squares[select].getZ == -1){
+		if(squares[select+16].getPiece() == 0 && squares[select].getZ() == -1){
 			squares[select+16].setHighlight(1);
 		}
 	}
@@ -243,7 +243,7 @@ void interCalc(){
             //detect if point clicked is inside our wireframe
             if (pt[1] > 0.3 - bOff && pt[2] < squares[i].getZ() + bOff && pt[0] > squares[i].getX() - bOff && 
             pt[0] < squares[i].getX() + bOff && pt[1] < 0.3 + bOff && pt[2] > squares[i].getZ() - bOff){
-                  select = i;
+                  selectPiece = i;
                   bOff = 1;
                   intersect = true;
             } 
@@ -254,7 +254,7 @@ void interCalc(){
 	  for (int i = 0; i < 64; i++){
 		  squares[i].setHighlight(0);
 	  }
-	  checkPiece(select);
+	  checkPiece(selectPiece);
 }
 
 //drawing wireframe for object selected
@@ -309,7 +309,7 @@ void mouse(int btn, int state, int x, int y){
       ymouse = 800 - y;
 
       if (btn == GLUT_LEFT_BUTTON && state == GLUT_UP){
-            selected = select;
+            selected = selectPiece;
       } 
       interCalc();
 }
