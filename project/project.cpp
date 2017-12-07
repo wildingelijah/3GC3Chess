@@ -41,6 +41,9 @@ int selected = 32;
 int selectpiece = 0;
 bool intersect = false;
 
+float teapotangle = 0;
+float teapot2angle = 0;
+
 int kingObj;
 int pawnObj;
 int bishopObj;
@@ -698,6 +701,50 @@ void display(void)
 			glPopMatrix();
 		}
 	}
+
+	teapotangle++;
+	teapot2angle++;
+	teapot2angle++;
+	
+	glPushMatrix();
+		glTranslatef(-3.5,1,-3.5);
+		glPushMatrix();
+			glColor3f(0,1,0);
+			glRotatef(teapotangle,0,1,0);
+			glTranslatef(8,0,0);
+			glutSolidTeapot(1);
+			glPushMatrix();
+				glColor3f(0,0,1);
+				glRotatef(teapot2angle,0,1,0);
+				glTranslatef(2,0,0);
+				glPushMatrix();
+					glRotatef(teapot2angle, 0,1,0);
+					glScalef(0.4,0.4,0.4);
+					glutSolidTeapot(1);
+				glPopMatrix();
+			glPopMatrix();
+		glPopMatrix();
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(-3.5,1,-3.5);
+		glPushMatrix();
+			glColor3f(1,0,0);
+			glRotatef(teapotangle,0,1,0);
+			glTranslatef(-8,0,0);
+			glutSolidTeapot(1);
+			glPushMatrix();
+				glColor3f(0.498,1,0.831);
+				glRotatef(teapot2angle,0,1,0);
+				glTranslatef(2,0,0);
+				glPushMatrix();
+					glRotatef(teapot2angle, 0,1,0);
+					glScalef(0.4,0.4,0.4);
+					glutSolidTeapot(1);
+				glPopMatrix();
+			glPopMatrix();
+		glPopMatrix();
+	glPopMatrix();
 
 	selectedObj(selected);
 	// glPushMatrix(); //push board
