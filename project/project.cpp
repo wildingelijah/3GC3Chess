@@ -242,40 +242,34 @@ void display(void)
 
 
     glPushMatrix(); //king
-    glScalef(2, 2, 2);
     glTranslatef(1, 2, 2);
     glCallList(kingObj); //draw the 3D mesh
     glPopMatrix();
 
 	glPushMatrix(); //queen
-    glScalef(2, 2, 2);
     glTranslatef(1, 3, 1);
     glCallList(queenObj);	//draw the 3D mesh
     glPopMatrix();
 
 	glPushMatrix(); //rook
-    glScalef(2, 2, 2);
     glTranslatef(2, 3, 3);
     glCallList(rookObj);	//draw the 3D mesh
     glPopMatrix();
 
 
 	glPushMatrix(); //bishop
-    //glScalef(2, 2, 2);
     glTranslatef(1, 2, 1);
     glCallList(bishopObj);	//draw the 3D mesh
     glPopMatrix();
 
 
 	glPushMatrix(); //knight
-    //glScalef(0.5, 0.5, 0.5);
     glTranslatef(2, 0.5, 3);
     glCallList(knightObj);	//draw the 3D mesh
     glPopMatrix();
 
 
     glPushMatrix(); //PAWN
-    glScalef(2, 2, 2);
     glTranslatef(2, 2, 1);
     glCallList(pawnObj);	//draw the 3D mesh
     glPopMatrix();
@@ -296,7 +290,7 @@ void myInit(void)
     gluPerspective(45, 1, 1, 400);
 
     kingObj=loadObject("king.obj");	//load the king.obj file
-    knightObj=loadObject("knightNoTexture.obj");	//load the pawn.obj file
+    knightObj=loadObject("knight.obj");	//load the pawn.obj file
     pawnObj=loadObject("pawn.obj");	//load the pawn.obj file
 	bishopObj=loadObject("bishop.obj");	//load the king.obj file
     queenObj=loadObject("queen.obj");	//load the pawn.obj file
