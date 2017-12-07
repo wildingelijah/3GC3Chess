@@ -11,6 +11,12 @@ public:
 	int getTeam();
 	int getHighlight();
 	int getColour();
+	void setX(int value);
+	void setZ(int value);
+	void setPiece(int value);
+	void setTeam(int value);
+	void setHighlight(int value);
+	void setColour(int value);
 
 	int x;
 	int z;

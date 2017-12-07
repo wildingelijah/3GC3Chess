@@ -44,6 +44,26 @@ int Square::getHighlight(){
     return highlight;
 }
 
+void Square::setX(int value){
+    x = value;
+}
+void Square::setZ(int value){
+    z = value;
+}
+void Square::setPiece(int value){
+    piece = value;
+}
+void Square::setTeam(int value){
+    team = value;
+}
+void Square::setColour(int value){
+    colour = value;
+}
+void Square::setHighlight(int value){
+    highlight = value;
+}
+
+
 void Board::drawBoard(){
 	glPushMatrix();
     glColor3f(1,0,0);
