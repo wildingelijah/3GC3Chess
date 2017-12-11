@@ -31,10 +31,10 @@ float camPos[] = {10, 15, 10};
 float pl1Cam[] = {-3.5,20,10};
 float pl2Cam[] = {-3.5,20,-17};
 
-int camTrack = 0;
+int camTrack = 1;
 
 bool piecemoved = false;
-int playerTurn = 0;
+int playerTurn = 1;
 int currentPiece = 0;
 
 GLfloat light_diffuse[] = {1.0, 1.0, 1.0, 0.0};  /* white diffuse light. */
@@ -356,9 +356,9 @@ void checkPiece(int selectpiece){
         } 
 
 	//black bishop
-	if (squares[selectpiece].getPiece() == bishopObj  && playerTurn%2==0 && squares[selectpiece].getTeam() == 0){
+	if (squares[selectpiece].getPiece() == bishopObj  && playerTurn%2 == 0 && squares[selectpiece].getTeam() == 0){
 		if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56){
-			for (int i = selectpiece + 7; true; i+=7){
+			for (int i = selectpiece + 7; i < 64; i+=7){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -371,7 +371,7 @@ void checkPiece(int selectpiece){
 					}
 			}
 
-			for (int i = selectpiece-9; true; i-=9){
+			for (int i = selectpiece-9; i > 0; i-=9){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -386,7 +386,7 @@ void checkPiece(int selectpiece){
 		}
 
 		if (selectpiece != 7 && selectpiece != 15 && selectpiece != 23 && selectpiece != 31 && selectpiece != 39 && selectpiece != 47 && selectpiece != 55 && selectpiece != 63){
-			for (int i = selectpiece+9; true; i+=9){
+			for (int i = selectpiece+9; i < 64; i+=9){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -398,7 +398,7 @@ void checkPiece(int selectpiece){
 						break;
 					}
 			}
-			for (int i = selectpiece-7; true; i-=7){
+			for (int i = selectpiece-7; i > 0; i-=7){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -418,7 +418,7 @@ void checkPiece(int selectpiece){
 	//white bishop
 	if (squares[selectpiece].getPiece() == bishopObj  && playerTurn%2==1 && squares[selectpiece].getTeam() == 1){
 		if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56){
-			for (int i = selectpiece + 7; true; i+=7){
+			for (int i = selectpiece + 7; i < 64; i+=7){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -431,7 +431,7 @@ void checkPiece(int selectpiece){
 					}
 			}
 
-			for (int i = selectpiece-9; true; i-=9){
+			for (int i = selectpiece-9; i > 0; i-=9){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -446,7 +446,7 @@ void checkPiece(int selectpiece){
 		}
 
 		if (selectpiece != 7 && selectpiece != 15 && selectpiece != 23 && selectpiece != 31 && selectpiece != 39 && selectpiece != 47 && selectpiece != 55 && selectpiece != 63){
-			for (int i = selectpiece+9; true; i+=9){
+			for (int i = selectpiece+9; i < 64; i+=9){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -458,7 +458,7 @@ void checkPiece(int selectpiece){
 						break;
 					}
 			}
-			for (int i = selectpiece-7; true; i-=7){
+			for (int i = selectpiece-7; i > 0; i-=7){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -497,7 +497,7 @@ void checkPiece(int selectpiece){
 		}
 
 		if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56){
-			for (int i = selectpiece-1; true; i--){
+			for (int i = selectpiece-1; i > 0; i--){
 				if (squares[i].getPiece() == 0){
 					squares[i].setHighlight(1);
 					highlightedSquares[i].setHighlight(1);
@@ -510,7 +510,7 @@ void checkPiece(int selectpiece){
 				}
 		}
 			
-			for (int i = selectpiece + 7; true; i+=7){
+			for (int i = selectpiece + 7; i < 64; i+=7){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -523,7 +523,7 @@ void checkPiece(int selectpiece){
 					}
 			}
 
-			for (int i = selectpiece-9; true; i-=9){
+			for (int i = selectpiece-9; i > 0; i-=9){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -538,7 +538,7 @@ void checkPiece(int selectpiece){
 		}
 
 		if (selectpiece != 7 && selectpiece != 15 && selectpiece != 23 && selectpiece != 31 && selectpiece != 39 && selectpiece != 47 && selectpiece != 55 && selectpiece != 63){
-			for (int i = selectpiece+1; true; i++){
+			for (int i = selectpiece+1; i < 64; i++){
 				if (squares[i].getPiece() == 0){
 					squares[i].setHighlight(1);
 					highlightedSquares[i].setHighlight(1);
@@ -552,7 +552,7 @@ void checkPiece(int selectpiece){
 
 		}
 			
-			for (int i = selectpiece+9; true; i+=9){
+			for (int i = selectpiece+9; i < 64; i+=9){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -564,7 +564,7 @@ void checkPiece(int selectpiece){
 						break;
 					}
 			}
-			for (int i = selectpiece-7; true; i-=7){
+			for (int i = selectpiece-7; i > 0; i-=7){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -603,7 +603,7 @@ void checkPiece(int selectpiece){
 		}
 
 		if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56){
-			for (int i = selectpiece-1; true; i--){
+			for (int i = selectpiece-1; i > 0; i--){
 				if (squares[i].getPiece() == 0){
 					squares[i].setHighlight(1);
 					highlightedSquares[i].setHighlight(1);
@@ -616,7 +616,7 @@ void checkPiece(int selectpiece){
 				}
 		}
 			
-			for (int i = selectpiece + 7; true; i+=7){
+			for (int i = selectpiece + 7; i < 64; i+=7){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -629,7 +629,7 @@ void checkPiece(int selectpiece){
 					}
 			}
 
-			for (int i = selectpiece-9; true; i-=9){
+			for (int i = selectpiece-9; i > 0; i-=9){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -644,7 +644,7 @@ void checkPiece(int selectpiece){
 		}
 
 		if (selectpiece != 7 && selectpiece != 15 && selectpiece != 23 && selectpiece != 31 && selectpiece != 39 && selectpiece != 47 && selectpiece != 55 && selectpiece != 63){
-			for (int i = selectpiece+1; true; i++){
+			for (int i = selectpiece+1; i < 64; i++){
 				if (squares[i].getPiece() == 0){
 					squares[i].setHighlight(1);
 					highlightedSquares[i].setHighlight(1);
@@ -658,7 +658,7 @@ void checkPiece(int selectpiece){
 
 		}
 			
-			for (int i = selectpiece+9; true; i+=9){
+			for (int i = selectpiece+9; i < 64; i+=9){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -670,7 +670,7 @@ void checkPiece(int selectpiece){
 						break;
 					}
 			}
-			for (int i = selectpiece-7; true; i-=7){
+			for (int i = selectpiece-7; i > 0; i-=7){
 					if (squares[i].getPiece() == 0){
 						squares[i].setHighlight(1);
 						highlightedSquares[i].setHighlight(1);
@@ -710,6 +710,28 @@ void checkPiece(int selectpiece){
 				highlightedSquares[selectpiece+17].setHighlight(1);
 			}
 		}
+
+		if (squares[selectpiece].getX() != -6 && squares[selectpiece].getX() != -7){
+			if (squares[selectpiece-6].getPiece() == 0){
+				squares[selectpiece-6].setHighlight(1);
+				highlightedSquares[selectpiece-6].setHighlight(1);
+			}
+			if (squares[selectpiece+10].getPiece() == 0){
+				squares[selectpiece+10].setHighlight(1);
+				highlightedSquares[selectpiece+10].setHighlight(1);
+			}
+		}
+
+		if (squares[selectpiece].getX() != 0 && squares[selectpiece].getX() != -1){
+			if (squares[selectpiece+6].getPiece() == 0){
+				squares[selectpiece+6].setHighlight(1);
+				highlightedSquares[selectpiece+6].setHighlight(1);
+			}
+			if (squares[selectpiece-10].getPiece() == 0){
+				squares[selectpiece-10].setHighlight(1);
+				highlightedSquares[selectpiece-10].setHighlight(1);
+			}
+		}
 	}
 
 	//white knight
@@ -733,6 +755,28 @@ void checkPiece(int selectpiece){
 			if (squares[selectpiece+17].getPiece() == 0){
 				squares[selectpiece+17].setHighlight(1);
 				highlightedSquares[selectpiece+17].setHighlight(1);
+			}
+		}
+
+		if (squares[selectpiece].getX() != -6 && squares[selectpiece].getX() != -7){
+			if (squares[selectpiece-6].getPiece() == 0){
+				squares[selectpiece-6].setHighlight(1);
+				highlightedSquares[selectpiece-6].setHighlight(1);
+			}
+			if (squares[selectpiece+10].getPiece() == 0){
+				squares[selectpiece+10].setHighlight(1);
+				highlightedSquares[selectpiece+10].setHighlight(1);
+			}
+		}
+
+		if (squares[selectpiece].getX() != 0 && squares[selectpiece].getX() != -1){
+			if (squares[selectpiece+6].getPiece() == 0){
+				squares[selectpiece+6].setHighlight(1);
+				highlightedSquares[selectpiece+6].setHighlight(1);
+			}
+			if (squares[selectpiece-10].getPiece() == 0){
+				squares[selectpiece-10].setHighlight(1);
+				highlightedSquares[selectpiece-10].setHighlight(1);
 			}
 		}
 	}
@@ -820,7 +864,6 @@ void checkPiece(int selectpiece){
 			}
 		}
 	}
-
 		//piece moving
     if (squares[selectpiece].getPiece() == 0 && highlightedSquares[selectpiece].getHighlight() == 1){
              squares[selectpiece].setPiece(squares[currentPiece].getPiece());
@@ -834,6 +877,12 @@ void checkPiece(int selectpiece){
                 squares[i].setHighlight(0);
             }
             playerTurn += 1;
+			if (camTrack == 0){
+				camTrack = 1;
+			}
+			else{
+				camTrack = 0;
+			}
             piecemoved = true;
             selectpiece = 64;
 
@@ -1178,6 +1227,9 @@ void display(void)
 				}
 				glTranslatef(squares[i].getX(),0.3,squares[i].getZ());
 				glScalef(1.5,1.5,1.5);
+				if(squares[i].getTeam() == 1){
+					glRotatef(180,0,1,0);
+				}
 				glCallList(squares[i].getPiece());
 				// glEnable(GL_COLOR_MATERIAL);
 			glPopMatrix();
