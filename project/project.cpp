@@ -826,19 +826,19 @@ void checkPiece(int selectpiece){
 				squares[selectpiece-17].setHighlight(1);
 				highlightedSquares[selectpiece-17].setHighlight(1);
 			}
-			else if (squares[selectpiece-17].getPiece() != 0){
-						if (squares[selectpiece-17].getPiece() == 1){
+			else if (squares[selectpiece-17].getPiece() != 0  && squares[selectpiece-17].getTeam() == 1){
+						//if (squares[selectpiece-17].getPiece() == 1){
 							highlightedSquares[selectpiece-17].setHighlight(2);
-							}
+							//}
 					}
 			if (squares[selectpiece+15].getPiece() == 0){
 				squares[selectpiece+15].setHighlight(1);
 				highlightedSquares[selectpiece+15].setHighlight(1);
 			}
-			else if (squares[selectpiece+15].getPiece() != 0){
-						if (squares[selectpiece+15].getPiece() == 1){
+			else if (squares[selectpiece+15].getPiece() != 0  && squares[selectpiece+15].getTeam() == 1){
+						//if (squares[selectpiece+15].getPiece() == 1){
 							highlightedSquares[selectpiece+15].setHighlight(2);
-							}
+						//	}
 					}
 		}
 
@@ -847,19 +847,19 @@ void checkPiece(int selectpiece){
 				squares[selectpiece-15].setHighlight(1);
 				highlightedSquares[selectpiece-15].setHighlight(1);
 			}
-			else if (squares[selectpiece-15].getPiece() != 0){
-						if (squares[selectpiece-15].getPiece() == 1){
+			else if (squares[selectpiece-15].getPiece() != 0 && squares[selectpiece-15].getTeam() == 1){
+						//if (squares[selectpiece-15].getPiece() == 1){
 							highlightedSquares[selectpiece-15].setHighlight(2);
-							}
+						//	}
 					}
 			if (squares[selectpiece+17].getPiece() == 0){
 				squares[selectpiece+17].setHighlight(1);
 				highlightedSquares[selectpiece+17].setHighlight(1);
 			}
-			else if (squares[selectpiece+17].getPiece() != 0){
-						if (squares[selectpiece+17].getPiece() == 1){
+			else if (squares[selectpiece+17].getPiece() != 0 && squares[selectpiece+17].getTeam() == 1){
+						//if (squares[selectpiece+17].getPiece() == 1){
 							highlightedSquares[selectpiece+17].setHighlight(2);
-							}
+						//	}
 					}
 		}
 
@@ -868,7 +868,7 @@ void checkPiece(int selectpiece){
 				squares[selectpiece-6].setHighlight(1);
 				highlightedSquares[selectpiece-6].setHighlight(1);
 			}
-			else if (squares[selectpiece-6].getPiece() != 0){
+			else if (squares[selectpiece-6].getPiece() != 0 && squares[selectpiece-6].getTeam() == 1){
 				squares[selectpiece-6].setHighlight(2);
 				highlightedSquares[selectpiece-6].setHighlight(2);
 			}
@@ -876,7 +876,7 @@ void checkPiece(int selectpiece){
 				squares[selectpiece+10].setHighlight(1);
 				highlightedSquares[selectpiece+10].setHighlight(1);
 			}
-			else if (squares[selectpiece+10].getPiece() != 0){
+			else if (squares[selectpiece+10].getPiece() != 0 && squares[selectpiece+10].getTeam() == 1){
 				squares[selectpiece+10].setHighlight(2);
 				highlightedSquares[selectpiece+10].setHighlight(2);
 			}
@@ -887,7 +887,7 @@ void checkPiece(int selectpiece){
 				squares[selectpiece+6].setHighlight(1);
 				highlightedSquares[selectpiece+6].setHighlight(1);
 			}
-			else if (squares[selectpiece+6].getPiece() != 0){
+			else if (squares[selectpiece+6].getPiece() != 0 && squares[selectpiece+6].getTeam() == 1){
 				squares[selectpiece+6].setHighlight(2);
 				highlightedSquares[selectpiece+6].setHighlight(2);
 			}
@@ -895,7 +895,7 @@ void checkPiece(int selectpiece){
 				squares[selectpiece-10].setHighlight(1);
 				highlightedSquares[selectpiece-10].setHighlight(1);
 			}
-			else if (squares[selectpiece-10].getPiece() != 0){
+			else if (squares[selectpiece-10].getPiece() != 0 && squares[selectpiece-10].getTeam() == 1){
 				squares[selectpiece-10].setHighlight(2);
 				highlightedSquares[selectpiece-10].setHighlight(2);
 			}
@@ -909,9 +909,17 @@ void checkPiece(int selectpiece){
 				squares[selectpiece-17].setHighlight(1);
 				highlightedSquares[selectpiece-17].setHighlight(1);
 			}
+			else if (squares[selectpiece-17].getPiece() != 0  && squares[selectpiece-17].getTeam() == 0){ //and condition?
+				squares[selectpiece-17].setHighlight(2);
+				highlightedSquares[selectpiece-17].setHighlight(2);
+			}
 			if (squares[selectpiece+15].getPiece() == 0){
 				squares[selectpiece+15].setHighlight(1);
 				highlightedSquares[selectpiece+15].setHighlight(1);
+			}
+			else if (squares[selectpiece+15].getPiece() != 0  && squares[selectpiece+15].getTeam() == 0){
+				squares[selectpiece+15].setHighlight(2);
+				highlightedSquares[selectpiece+15].setHighlight(2);
 			}
 		}
 
@@ -920,9 +928,17 @@ void checkPiece(int selectpiece){
 				squares[selectpiece-15].setHighlight(1);
 				highlightedSquares[selectpiece-15].setHighlight(1);
 			}
+			else if (squares[selectpiece-15].getPiece() != 0  && squares[selectpiece-15].getTeam() == 0){
+				squares[selectpiece-15].setHighlight(2);
+				highlightedSquares[selectpiece-15].setHighlight(2);
+			}
 			if (squares[selectpiece+17].getPiece() == 0){
 				squares[selectpiece+17].setHighlight(1);
 				highlightedSquares[selectpiece+17].setHighlight(1);
+			}
+			else if (squares[selectpiece+17].getPiece() != 0  && squares[selectpiece+17].getTeam() == 0){
+				squares[selectpiece+17].setHighlight(2);
+				highlightedSquares[selectpiece+17].setHighlight(2);
 			}
 		}
 
@@ -931,9 +947,17 @@ void checkPiece(int selectpiece){
 				squares[selectpiece-6].setHighlight(1);
 				highlightedSquares[selectpiece-6].setHighlight(1);
 			}
+			else if (squares[selectpiece-6].getPiece() != 0  && squares[selectpiece-6].getTeam() == 0){
+				squares[selectpiece-6].setHighlight(2);
+				highlightedSquares[selectpiece-6].setHighlight(2);
+			}
 			if (squares[selectpiece+10].getPiece() == 0){
 				squares[selectpiece+10].setHighlight(1);
 				highlightedSquares[selectpiece+10].setHighlight(1);
+			}
+			else if (squares[selectpiece+10].getPiece() != 0 && squares[selectpiece+10].getTeam() == 0){
+				squares[selectpiece+10].setHighlight(2);
+				highlightedSquares[selectpiece+10].setHighlight(2);
 			}
 		}
 
@@ -942,9 +966,17 @@ void checkPiece(int selectpiece){
 				squares[selectpiece+6].setHighlight(1);
 				highlightedSquares[selectpiece+6].setHighlight(1);
 			}
+			else if (squares[selectpiece+6].getPiece() != 0  && squares[selectpiece+6].getTeam() == 0){
+				squares[selectpiece+6].setHighlight(2);
+				highlightedSquares[selectpiece+6].setHighlight(2);
+			}
 			if (squares[selectpiece-10].getPiece() == 0){
 				squares[selectpiece-10].setHighlight(1);
 				highlightedSquares[selectpiece-10].setHighlight(1);
+			}
+			else if (squares[selectpiece-10].getPiece() != 0 && squares[selectpiece-10].getTeam() == 0){
+				squares[selectpiece-10].setHighlight(2);
+				highlightedSquares[selectpiece-10].setHighlight(2);
 			}
 		}
 	}
@@ -1468,7 +1500,7 @@ void display(void)
 			glPopMatrix();
 			// 3rd orbit, small yellow pot
 			glPushMatrix();
-				glColor3f(0.5,0,0.1);
+				glColor3f(0.5,0,0.7);
 				glRotatef(-teapot2angle,0,1,0);
 				glTranslatef(0,0,2);
 				glPushMatrix();
