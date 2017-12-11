@@ -272,7 +272,7 @@ void checkPiece(int selectpiece){
             }
     
             if (selectpiece != 7 && selectpiece != 15 && selectpiece != 23 && selectpiece != 31 && selectpiece != 39 && selectpiece != 47 && selectpiece != 55 && selectpiece != 63){
-                for (int i = selectpiece+1; true; i++){
+                for (int i = selectpiece+1; i < 64; i++){
                         if (squares[i].getPiece() == 0){
                             squares[i].setHighlight(1);
                             highlightedSquares[i].setHighlight(1);
@@ -288,7 +288,7 @@ void checkPiece(int selectpiece){
             }
     
             if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56){
-                for (int i = selectpiece-1; true; i--){
+                for (int i = selectpiece-1; i > 0; i--){
                         if (squares[i].getPiece() == 0){
                             squares[i].setHighlight(1);
                             highlightedSquares[i].setHighlight(1);
@@ -324,7 +324,7 @@ void checkPiece(int selectpiece){
             }
     
             if (selectpiece != 7 && selectpiece != 15 && selectpiece != 23 && selectpiece != 31 && selectpiece != 39 && selectpiece != 47 && selectpiece != 55 && selectpiece != 63){
-                for (int i = selectpiece+1; true; i++){
+                for (int i = selectpiece+1; i < 64; i++){
                         if (squares[i].getPiece() == 0){
                             squares[i].setHighlight(1);
                             highlightedSquares[i].setHighlight(1);
@@ -340,7 +340,7 @@ void checkPiece(int selectpiece){
             }
     
             if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56){
-                for (int i = selectpiece-1; true; i--){
+                for (int i = selectpiece-1; i > 0; i--){
                         if (squares[i].getPiece() == 0){
                             squares[i].setHighlight(1);
                             highlightedSquares[i].setHighlight(1);
