@@ -286,7 +286,7 @@ void checkPiece(int selectpiece){
          //rook highlight
          //squares[selectpiece].getPiece() == pawnObj && playerTurn%2==0 && squares[selectpiece].getTeam() == 0
 	
-	//white rook
+	//black rook
     if (squares[selectpiece].getPiece() == rookObj && playerTurn%2==0 && squares[selectpiece].getTeam() == 0){
             for (int i = selectpiece + 8; i < 64; i+=8){
                     if (squares[i].getPiece() == 0){
@@ -294,7 +294,10 @@ void checkPiece(int selectpiece){
                         highlightedSquares[i].setHighlight(1);
                     }
                     else if (squares[i].getPiece() != 0){
-                        break;
+						if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
+							break;
                     }
             }
             for (int i = selectpiece-8; i > 0; i-=8){
@@ -303,7 +306,10 @@ void checkPiece(int selectpiece){
                         highlightedSquares[i].setHighlight(1);
                     }
                     else if (squares[i].getPiece() != 0){
-                        break;
+						if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
+							break;
                     }
             }
     
@@ -314,6 +320,9 @@ void checkPiece(int selectpiece){
                             highlightedSquares[i].setHighlight(1);
                         }
                         else if (squares[i].getPiece() != 0){
+							if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
                             break;
                         }
                         if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -330,6 +339,9 @@ void checkPiece(int selectpiece){
                             highlightedSquares[i].setHighlight(1);
                         }
                         else if (squares[i].getPiece() != 0){
+							if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
                             break;
                         }
                         if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -338,7 +350,7 @@ void checkPiece(int selectpiece){
                 }
             }
         }
-	//black rook
+	//white rook
     if (squares[selectpiece].getPiece() == rookObj && playerTurn%2==1 && squares[selectpiece].getTeam() == 1){
             for (int i = selectpiece + 8; i < 64; i+=8){
                     if (squares[i].getPiece() == 0){
@@ -346,6 +358,9 @@ void checkPiece(int selectpiece){
                         highlightedSquares[i].setHighlight(1);
                     }
                     else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
                         break;
                     }
             }
@@ -355,6 +370,9 @@ void checkPiece(int selectpiece){
                         highlightedSquares[i].setHighlight(1);
                     }
                     else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
                         break;
                     }
             }
@@ -366,6 +384,9 @@ void checkPiece(int selectpiece){
                             highlightedSquares[i].setHighlight(1);
                         }
                         else if (squares[i].getPiece() != 0){
+							if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
                             break;
                         }
                         if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -382,6 +403,9 @@ void checkPiece(int selectpiece){
                             highlightedSquares[i].setHighlight(1);
                         }
                         else if (squares[i].getPiece() != 0){
+							if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
                             break;
                         }
                         if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -400,6 +424,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -413,6 +440,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -428,6 +458,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -440,6 +473,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -460,6 +496,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -473,6 +512,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -488,6 +530,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -500,6 +545,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -519,6 +567,9 @@ void checkPiece(int selectpiece){
 					highlightedSquares[i].setHighlight(1);
 				}
 				else if (squares[i].getPiece() != 0){
+					if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 					break;
 				}
 		}
@@ -528,6 +579,9 @@ void checkPiece(int selectpiece){
 					highlightedSquares[i].setHighlight(1);
 				}
 				else if (squares[i].getPiece() != 0){
+					if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 					break;
 				}
 		}
@@ -539,6 +593,9 @@ void checkPiece(int selectpiece){
 					highlightedSquares[i].setHighlight(1);
 				}
 				else if (squares[i].getPiece() != 0){
+					if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 					break;
 				}
 				if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -552,6 +609,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -565,6 +625,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -580,6 +643,9 @@ void checkPiece(int selectpiece){
 					highlightedSquares[i].setHighlight(1);
 				}
 				else if (squares[i].getPiece() != 0){
+					if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 					break;
 				}
 				if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -594,6 +660,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -606,6 +675,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 0){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -625,6 +697,9 @@ void checkPiece(int selectpiece){
 					highlightedSquares[i].setHighlight(1);
 				}
 				else if (squares[i].getPiece() != 0){
+					if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 					break;
 				}
 		}
@@ -634,6 +709,9 @@ void checkPiece(int selectpiece){
 					highlightedSquares[i].setHighlight(1);
 				}
 				else if (squares[i].getPiece() != 0){
+					if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 					break;
 				}
 		}
@@ -645,6 +723,9 @@ void checkPiece(int selectpiece){
 					highlightedSquares[i].setHighlight(1);
 				}
 				else if (squares[i].getPiece() != 0){
+					if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 					break;
 				}
 				if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -658,6 +739,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -671,6 +755,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56){
@@ -686,6 +773,9 @@ void checkPiece(int selectpiece){
 					highlightedSquares[i].setHighlight(1);
 				}
 				else if (squares[i].getPiece() != 0){
+					if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 					break;
 				}
 				if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -700,6 +790,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -712,6 +805,9 @@ void checkPiece(int selectpiece){
 						highlightedSquares[i].setHighlight(1);
 					}
 					else if (squares[i].getPiece() != 0){
+						if (squares[i].getTeam() == 1){
+							highlightedSquares[i].setHighlight(2);
+							}
 						break;
 					}
 					if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63){
@@ -730,10 +826,20 @@ void checkPiece(int selectpiece){
 				squares[selectpiece-17].setHighlight(1);
 				highlightedSquares[selectpiece-17].setHighlight(1);
 			}
+			else if (squares[selectpiece-17].getPiece() != 0){
+						if (squares[selectpiece-17].getPiece() == 1){
+							highlightedSquares[selectpiece-17].setHighlight(2);
+							}
+					}
 			if (squares[selectpiece+15].getPiece() == 0){
 				squares[selectpiece+15].setHighlight(1);
 				highlightedSquares[selectpiece+15].setHighlight(1);
 			}
+			else if (squares[selectpiece+15].getPiece() != 0){
+						if (squares[selectpiece+15].getPiece() == 1){
+							highlightedSquares[selectpiece+15].setHighlight(2);
+							}
+					}
 		}
 
 		if (selectpiece != 7 && selectpiece != 15 && selectpiece != 23 && selectpiece != 31 && selectpiece != 39 && selectpiece != 47 && selectpiece != 55 && selectpiece != 63){
@@ -741,10 +847,20 @@ void checkPiece(int selectpiece){
 				squares[selectpiece-15].setHighlight(1);
 				highlightedSquares[selectpiece-15].setHighlight(1);
 			}
+			else if (squares[selectpiece-15].getPiece() != 0){
+						if (squares[selectpiece-15].getPiece() == 1){
+							highlightedSquares[selectpiece-15].setHighlight(2);
+							}
+					}
 			if (squares[selectpiece+17].getPiece() == 0){
 				squares[selectpiece+17].setHighlight(1);
 				highlightedSquares[selectpiece+17].setHighlight(1);
 			}
+			else if (squares[selectpiece+17].getPiece() != 0){
+						if (squares[selectpiece+17].getPiece() == 1){
+							highlightedSquares[selectpiece+17].setHighlight(2);
+							}
+					}
 		}
 
 		if (squares[selectpiece].getX() != -6 && squares[selectpiece].getX() != -7){
@@ -752,9 +868,17 @@ void checkPiece(int selectpiece){
 				squares[selectpiece-6].setHighlight(1);
 				highlightedSquares[selectpiece-6].setHighlight(1);
 			}
+			else if (squares[selectpiece-6].getPiece() != 0){
+				squares[selectpiece-6].setHighlight(2);
+				highlightedSquares[selectpiece-6].setHighlight(2);
+			}
 			if (squares[selectpiece+10].getPiece() == 0){
 				squares[selectpiece+10].setHighlight(1);
 				highlightedSquares[selectpiece+10].setHighlight(1);
+			}
+			else if (squares[selectpiece+10].getPiece() != 0){
+				squares[selectpiece+10].setHighlight(2);
+				highlightedSquares[selectpiece+10].setHighlight(2);
 			}
 		}
 
@@ -763,9 +887,17 @@ void checkPiece(int selectpiece){
 				squares[selectpiece+6].setHighlight(1);
 				highlightedSquares[selectpiece+6].setHighlight(1);
 			}
+			else if (squares[selectpiece+6].getPiece() != 0){
+				squares[selectpiece+6].setHighlight(2);
+				highlightedSquares[selectpiece+6].setHighlight(2);
+			}
 			if (squares[selectpiece-10].getPiece() == 0){
 				squares[selectpiece-10].setHighlight(1);
 				highlightedSquares[selectpiece-10].setHighlight(1);
+			}
+			else if (squares[selectpiece-10].getPiece() != 0){
+				squares[selectpiece-10].setHighlight(2);
+				highlightedSquares[selectpiece-10].setHighlight(2);
 			}
 		}
 	}
@@ -1302,6 +1434,18 @@ void display(void)
 					glutSolidTeapot(1);
 				glPopMatrix();
 			glPopMatrix();
+			// 3rd orbit, small yellow pot
+			glPushMatrix();
+				glColor3f(0.9,0.8,0.1);
+				glRotatef(-teapot2angle,0,1,0);
+				glTranslatef(0,0,2);
+				glPushMatrix();
+					glRotatef(-teapot2angle, 0,0,1);
+					glScalef(0.3,0.3,0.3);
+					glutSolidTeapot(1);
+				glPopMatrix();
+			glPopMatrix();
+			// 3rd orbit end
 		glPopMatrix();
 	glPopMatrix();
 
@@ -1322,6 +1466,18 @@ void display(void)
 					glutSolidTeapot(1);
 				glPopMatrix();
 			glPopMatrix();
+			// 3rd orbit, small yellow pot
+			glPushMatrix();
+				glColor3f(0.5,0,0.1);
+				glRotatef(-teapot2angle,0,1,0);
+				glTranslatef(0,0,2);
+				glPushMatrix();
+					glRotatef(-teapot2angle, 0,0,1);
+					glScalef(0.3,0.3,0.3);
+					glutSolidTeapot(1);
+				glPopMatrix();
+			glPopMatrix();
+			// 3rd orbit end
 		glPopMatrix();
 	glPopMatrix();
 
