@@ -28,8 +28,8 @@
 //all variable initialization
 
 float camPos[] = {10, 15, 10};
-float pl1Cam[] = {-3.5,20,10};
-float pl2Cam[] = {-3.5,20,-17};
+float pl1Cam[] = {-3.5,17,10};
+float pl2Cam[] = {-3.5,17,-17};
 
 int camTrack = 1;
 
@@ -37,8 +37,10 @@ bool piecemoved = false;
 int playerTurn = 1;
 int currentPiece = 0;
 
-GLfloat light_diffuse[] = {1.0, 1.0, 1.0, 0.0};  /* white diffuse light. */
-GLfloat light_position[] = {0.0, 1.0, 0.0, 0.0};  /* Infinite light location. */
+GLfloat light_diffuse[] = {1.0, 1.0, 1.0, 0.0};
+GLfloat light_position[] = {0.0, 1.0, 0.0, 0.0};
+GLfloat light_ambient[] = {0.5, 0.5, 0.5, 0.0};
+GLfloat light_specular[] = {0, 0, 0, 0.0};
 
 int xmouse = 0;
 int ymouse = 0;
@@ -1251,7 +1253,7 @@ void display(void)
 
 				if (squares[i].getTeam() == 0){
 					
-					glColor3f(0.4,0.4,0.4);
+					glColor3f(0.3,0.3,0.3);
 					// float m_ambient[4] = {0.24725, 0.1995, 0.0745, 1.0f};
 					// float m_diffuse[4] = {0.75164, 0.60648, 0.22648, 1.0f};
 					// float m_specular[4] = {0.628281, 0.555802, 0.366065, 1.0f};
@@ -1264,7 +1266,7 @@ void display(void)
 					
 				}
 				else {
-					glColor3f(1,1,1);
+					glColor3f(0.9,0.9,0.9);
 				}
 				glTranslatef(squares[i].getX(),0.3,squares[i].getZ());
 				glScalef(1.5,1.5,1.5);
@@ -1344,6 +1346,8 @@ void myInit(void)
     glColor3f(1, 1, 1);
 
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
@@ -1361,9 +1365,8 @@ void myInit(void)
 
     //backface culling
     glFrontFace(GL_CCW);
-    glCullFace(GL_BACK);
-    glEnable(GL_CULL_FACE);
-
+    // glCullFace(GL_BACK);
+    // glEnable(GL_CULL_FACE);
 
 }
 
@@ -1373,9 +1376,27 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(1000, 750);
     glutInitWindowPosition(0, 0);
-    glutCreateWindow("Chess Bois");	//creates the window
+    glutCreateWindow("3D Chess");	//creates the window
     //below is print out to terminal with all info needed to use program
-	//makeBoard();
+	printf("\n-------------------------------------------------------------------------------------------------------------------------\n");
+	printf("\n				     WELCOME TO OUR 3D CHESS \n");
+	printf("\n-------------------------------------------------------------------------------------------------------------------------\n");
+	printf("\n                                        Elijah Wilding, wildinge, 400013471\n");
+	printf("                                        Zack Palantzas, palantzz, 400016191\n");
+	printf("                                        Corey Szeto, szetoc, 400025728\n");
+	printf("                                        Aleem Haq, haqau4, 1330201\n");
+	printf("\n-------------------------------------------------------------------------------------------------------------------------\n");
+	printf("\nHere is our final project implementation of 3D Chess. Please make sure to read this as it contains some important\n");
+	printf("information. Firstly, we felt as if the graphics aspect of this program was much more important than the actual back end\n");
+	printf("thus we focused more on the look and feel of the project then on actual features such as AI. Secondly, when a player\n");
+	printf("takes their turn the camera flips to the other player's side. We just wanted to bring this up as it is a rather fast \n");
+	printf("flip and did not want to cause confusion. Thirdly, the program has some bugs when it is run on Linux. Running on MacOs\n");
+	printf("and Windows allows the program to run perfectly so it is definitely preferable. \n ");
+	printf("\nKey Control Command List :\n");
+	printf("*PLEASE PAY ATTENTION TO CAPITAL LETTERS*");
+	printf("left mouse click - selects object if correctly hovering over it\n");
+	printf("right mouse click - deletes the object that is currently hovered over or if hovering over none, deletes selected object\n");
+    printf("-------------------------------------------------------------------------------------------------------------------------\n\n");
     glutDisplayFunc(display); //registers "display" as the display callback function
     glutKeyboardFunc(keyboard);	
 	glutMouseFunc(mouse);
