@@ -215,7 +215,7 @@ void keyboard(unsigned char key, int xIn, int yIn)
 }
 
 void checkPiece(int selectpiece){
-	//white pawn highlight
+	//blsck pawn highlight
     if (squares[selectpiece].getPiece() == pawnObj && playerTurn%2==0 && squares[selectpiece].getTeam() == 0){
         piecemoved = false;
         for (int i = 0; i < 64; i++){
@@ -229,8 +229,26 @@ void checkPiece(int selectpiece){
             squares[selectpiece+16].setHighlight(1);
             highlightedSquares[selectpiece+16].setHighlight(1);
 		}
+		if( squares[selectpiece].getX() == 0){
+			if (squares[selectpiece+9].getTeam() == 1){
+				highlightedSquares[selectpiece+9].setHighlight(2);
+			}
+		}
+		if(squares[selectpiece].getX() == -7){
+			if (squares[selectpiece+7].getTeam() == 1){
+				highlightedSquares[selectpiece+7].setHighlight(2);
+			}
+		}
+		if(squares[selectpiece].getX() != -7 && squares[selectpiece].getX() != 0){
+			if (squares[selectpiece+7].getTeam() == 1){
+				highlightedSquares[selectpiece+7].setHighlight(2);
+			}
+			if (squares[selectpiece+9].getTeam() == 1){
+				highlightedSquares[selectpiece+9].setHighlight(2);
+			}
+		}
     }
-    //black pawn highlight
+    //white pawn highlight
     if (squares[selectpiece].getPiece() == pawnObj && playerTurn%2==1 && squares[selectpiece].getTeam() == 1){
         piecemoved = false;
         for (int i = 0; i < 64; i++){
@@ -243,6 +261,24 @@ void checkPiece(int selectpiece){
 		if(squares[selectpiece-16].getPiece() == 0 && squares[selectpiece].getZ() == -6){
             squares[selectpiece-16].setHighlight(1);
             highlightedSquares[selectpiece-16].setHighlight(1);
+		}
+		if(squares[selectpiece].getX() == 0){
+			if (squares[selectpiece-7].getTeam() == 0){
+				highlightedSquares[selectpiece-7].setHighlight(2);
+			}
+		}
+		if(squares[selectpiece].getX() == -7){
+			if (squares[selectpiece-9].getTeam() == 0){
+				highlightedSquares[selectpiece-9].setHighlight(2);
+			}
+		}
+		if( squares[selectpiece].getX() != -7 && squares[selectpiece].getX() != 0){
+			if (squares[selectpiece-7].getTeam() == 0){
+				highlightedSquares[selectpiece-7].setHighlight(2);
+			}
+			if (squares[selectpiece-9].getTeam() == 0){
+				highlightedSquares[selectpiece-9].setHighlight(2);
+			}
 		}
     }
 
@@ -864,8 +900,9 @@ void checkPiece(int selectpiece){
 			}
 		}
 	}
-		//piece moving
-    if (squares[selectpiece].getPiece() == 0 && highlightedSquares[selectpiece].getHighlight() == 1){
+
+	//piece moving
+    if ((highlightedSquares[selectpiece].getHighlight() == 1 || highlightedSquares[selectpiece].getHighlight() == 2) && squares[currentPiece].getPiece() != 0){
              squares[selectpiece].setPiece(squares[currentPiece].getPiece());
              squares[selectpiece].setTeam(squares[currentPiece].getTeam());
              std::cout<<currentPiece;
@@ -887,7 +924,7 @@ void checkPiece(int selectpiece){
             selectpiece = 64;
 
             //pn;layerTurn = !playerTur
-    }
+         }
 }
 
 
@@ -1042,41 +1079,41 @@ void makeBoard(void){
 	squares[14] = Square(-6,-1,pawnObj,0,1,0);
 	squares[15] = Square(-7,-1,pawnObj,0,0,0);
 
-	squares[16] = Square(0,-2,0,0,0,0);
-	squares[17] = Square(-1,-2,0,0,1,0);
-	squares[18] = Square(-2,-2,0,0,0,0);
-	squares[19] = Square(-3,-2,0,0,1,0);
-	squares[20] = Square(-4,-2,0,0,0,0);
-	squares[21] = Square(-5,-2,0,0,1,0);
-	squares[22] = Square(-6,-2,0,0,0,0);
-	squares[23] = Square(-7,-2,0,0,1,0);
+	squares[16] = Square(0,-2,0,2,0,0);
+	squares[17] = Square(-1,-2,0,2,1,0);
+	squares[18] = Square(-2,-2,0,2,0,0);
+	squares[19] = Square(-3,-2,0,2,1,0);
+	squares[20] = Square(-4,-2,0,2,0,0);
+	squares[21] = Square(-5,-2,0,2,1,0);
+	squares[22] = Square(-6,-2,0,2,0,0);
+	squares[23] = Square(-7,-2,0,2,1,0);
 
-	squares[24] = Square(0,-3,0,0,1,0);
-	squares[25] = Square(-1,-3,0,0,0,0);
-	squares[26] = Square(-2,-3,0,0,1,0);
-	squares[27] = Square(-3,-3,0,0,0,0);
-	squares[28] = Square(-4,-3,0,0,1,0);
-	squares[29] = Square(-5,-3,0,0,0,0);
-	squares[30] = Square(-6,-3,0,0,1,0);
-	squares[31] = Square(-7,-3,0,0,0,0);
+	squares[24] = Square(0,-3,0,2,1,0);
+	squares[25] = Square(-1,-3,0,2,0,0);
+	squares[26] = Square(-2,-3,0,2,1,0);
+	squares[27] = Square(-3,-3,0,2,0,0);
+	squares[28] = Square(-4,-3,0,2,1,0);
+	squares[29] = Square(-5,-3,0,2,0,0);
+	squares[30] = Square(-6,-3,0,2,1,0);
+	squares[31] = Square(-7,-3,0,2,0,0);
 
-	squares[32] = Square(0,-4,0,0,0,0);
-	squares[33] = Square(-1,-4,0,0,1,0);
-	squares[34] = Square(-2,-4,0,0,0,0);
-	squares[35] = Square(-3,-4,0,0,1,0);
-	squares[36] = Square(-4,-4,0,0,0,0);
-	squares[37] = Square(-5,-4,0,0,1,0);
-	squares[38] = Square(-6,-4,0,0,0,0);
-	squares[39] = Square(-7,-4,0,0,1,0);
+	squares[32] = Square(0,-4,0,2,0,0);
+	squares[33] = Square(-1,-4,0,2,1,0);
+	squares[34] = Square(-2,-4,0,2,0,0);
+	squares[35] = Square(-3,-4,0,2,1,0);
+	squares[36] = Square(-4,-4,0,2,0,0);
+	squares[37] = Square(-5,-4,0,2,1,0);
+	squares[38] = Square(-6,-4,0,2,0,0);
+	squares[39] = Square(-7,-4,0,2,1,0);
 
-	squares[40] = Square(0,-5,0,0,1,0);
-	squares[41] = Square(-1,-5,0,0,0,0);
-	squares[42] = Square(-2,-5,0,0,1,0);
-	squares[43] = Square(-3,-5,0,0,0,0);
-	squares[44] = Square(-4,-5,0,0,1,0);
-	squares[45] = Square(-5,-5,0,0,0,0);
-	squares[46] = Square(-6,-5,0,0,1,0);
-	squares[47] = Square(-7,-5,0,0,0,0);
+	squares[40] = Square(0,-5,0,2,1,0);
+	squares[41] = Square(-1,-5,0,2,0,0);
+	squares[42] = Square(-2,-5,0,2,1,0);
+	squares[43] = Square(-3,-5,0,2,0,0);
+	squares[44] = Square(-4,-5,0,2,1,0);
+	squares[45] = Square(-5,-5,0,2,0,0);
+	squares[46] = Square(-6,-5,0,2,1,0);
+	squares[47] = Square(-7,-5,0,2,0,0);
 
 	squares[48] = Square(0,-6,pawnObj,1,0,0);
 	squares[49] = Square(-1,-6,pawnObj,1,1,0);
@@ -1099,79 +1136,80 @@ void makeBoard(void){
 }
 
 void makeHighlightedBoard(void){
-    squares[0] = Square(0,0,rookObj,0,0,0);
-	squares[1] = Square(-1,0,knightObj,0,1,0);
-	squares[2] = Square(-2,0,bishopObj,0,0,0);
-	squares[3] = Square(-3,0,queenObj,0,1,0);
-	squares[4] = Square(-4,0,kingObj,0,0,0);
-	squares[5] = Square(-5,0,bishopObj,0,1,0);
-	squares[6] = Square(-6,0,knightObj,0,0,0);
-	squares[7] = Square(-7,0,rookObj,0,1,0);
+    highlightedSquares[0] = Square(0,0,rookObj,0,0,0);
+	highlightedSquares[1] = Square(-1,0,knightObj,0,1,0);
+	highlightedSquares[2] = Square(-2,0,bishopObj,0,0,0);
+	highlightedSquares[3] = Square(-3,0,queenObj,0,1,0);
+	highlightedSquares[4] = Square(-4,0,kingObj,0,0,0);
+	highlightedSquares[5] = Square(-5,0,bishopObj,0,1,0);
+	highlightedSquares[6] = Square(-6,0,knightObj,0,0,0);
+	highlightedSquares[7] = Square(-7,0,rookObj,0,1,0);
 
-	squares[8] = Square(0,-1,pawnObj,0,1,0);
-	squares[9] = Square(-1,-1,pawnObj,0,0,0);
-	squares[10] = Square(-2,-1,pawnObj,0,1,0);
-	squares[11] = Square(-3,-1,pawnObj,0,0,0);
-	squares[12] = Square(-4,-1,pawnObj,0,1,0);
-	squares[13] = Square(-5,-1,pawnObj,0,0,0);
-	squares[14] = Square(-6,-1,pawnObj,0,1,0);
-	squares[15] = Square(-7,-1,pawnObj,0,0,0);
+	highlightedSquares[8] = Square(0,-1,pawnObj,0,1,0);
+	highlightedSquares[9] = Square(-1,-1,pawnObj,0,0,0);
+	highlightedSquares[10] = Square(-2,-1,pawnObj,0,1,0);
+	highlightedSquares[11] = Square(-3,-1,pawnObj,0,0,0);
+	highlightedSquares[12] = Square(-4,-1,pawnObj,0,1,0);
+	highlightedSquares[13] = Square(-5,-1,pawnObj,0,0,0);
+	highlightedSquares[14] = Square(-6,-1,pawnObj,0,1,0);
+	highlightedSquares[15] = Square(-7,-1,pawnObj,0,0,0);
 
-	squares[16] = Square(0,-2,0,0,0,0);
-	squares[17] = Square(-1,-2,0,0,1,0);
-	squares[18] = Square(-2,-2,0,0,0,0);
-	squares[19] = Square(-3,-2,0,0,1,0);
-	squares[20] = Square(-4,-2,0,0,0,0);
-	squares[21] = Square(-5,-2,0,0,1,0);
-	squares[22] = Square(-6,-2,0,0,0,0);
-	squares[23] = Square(-7,-2,0,0,1,0);
+	highlightedSquares[16] = Square(0,-2,0,0,0,0);
+	highlightedSquares[17] = Square(-1,-2,0,0,1,0);
+	highlightedSquares[18] = Square(-2,-2,0,0,0,0);
+	highlightedSquares[19] = Square(-3,-2,0,0,1,0);
+	highlightedSquares[20] = Square(-4,-2,0,0,0,0);
+	highlightedSquares[21] = Square(-5,-2,0,0,1,0);
+	highlightedSquares[22] = Square(-6,-2,0,0,0,0);
+	highlightedSquares[23] = Square(-7,-2,0,0,1,0);
 
-	squares[24] = Square(0,-3,0,0,1,0);
-	squares[25] = Square(-1,-3,0,0,0,0);
-	squares[26] = Square(-2,-3,0,0,1,0);
-	squares[27] = Square(-3,-3,0,0,0,0);
-	squares[28] = Square(-4,-3,0,0,1,0);
-	squares[29] = Square(-5,-3,0,0,0,0);
-	squares[30] = Square(-6,-3,0,0,1,0);
-	squares[31] = Square(-7,-3,0,0,0,0);
+	highlightedSquares[24] = Square(0,-3,0,0,1,0);
+	highlightedSquares[25] = Square(-1,-3,0,0,0,0);
+	highlightedSquares[26] = Square(-2,-3,0,0,1,0);
+	highlightedSquares[27] = Square(-3,-3,0,0,0,0);
+	highlightedSquares[28] = Square(-4,-3,0,0,1,0);
+	highlightedSquares[29] = Square(-5,-3,0,0,0,0);
+	highlightedSquares[30] = Square(-6,-3,0,0,1,0);
+	highlightedSquares[31] = Square(-7,-3,0,0,0,0);
 
-	squares[32] = Square(0,-4,0,0,0,0);
-	squares[33] = Square(-1,-4,0,0,1,0);
-	squares[34] = Square(-2,-4,0,0,0,0);
-	squares[35] = Square(-3,-4,0,0,1,0);
-	squares[36] = Square(-4,-4,0,0,0,0);
-	squares[37] = Square(-5,-4,0,0,1,0);
-	squares[38] = Square(-6,-4,0,0,0,0);
-	squares[39] = Square(-7,-4,0,0,1,0);
+	highlightedSquares[32] = Square(0,-4,0,0,0,0);
+	highlightedSquares[33] = Square(-1,-4,0,0,1,0);
+	highlightedSquares[34] = Square(-2,-4,0,0,0,0);
+	highlightedSquares[35] = Square(-3,-4,0,0,1,0);
+	highlightedSquares[36] = Square(-4,-4,0,0,0,0);
+	highlightedSquares[37] = Square(-5,-4,0,0,1,0);
+	highlightedSquares[38] = Square(-6,-4,0,0,0,0);
+	highlightedSquares[39] = Square(-7,-4,0,0,1,0);
 
-	squares[40] = Square(0,-5,0,0,1,0);
-	squares[41] = Square(-1,-5,0,0,0,0);
-	squares[42] = Square(-2,-5,0,0,1,0);
-	squares[43] = Square(-3,-5,0,0,0,0);
-	squares[44] = Square(-4,-5,0,0,1,0);
-	squares[45] = Square(-5,-5,0,0,0,0);
-	squares[46] = Square(-6,-5,0,0,1,0);
-	squares[47] = Square(-7,-5,0,0,0,0);
+	highlightedSquares[40] = Square(0,-5,0,0,1,0);
+	highlightedSquares[41] = Square(-1,-5,0,0,0,0);
+	highlightedSquares[42] = Square(-2,-5,0,0,1,0);
+	highlightedSquares[43] = Square(-3,-5,0,0,0,0);
+	highlightedSquares[44] = Square(-4,-5,0,0,1,0);
+	highlightedSquares[45] = Square(-5,-5,0,0,0,0);
+	highlightedSquares[46] = Square(-6,-5,0,0,1,0);
+	highlightedSquares[47] = Square(-7,-5,0,0,0,0);
 
-	squares[48] = Square(0,-6,pawnObj,1,0,0);
-	squares[49] = Square(-1,-6,pawnObj,1,1,0);
-	squares[50] = Square(-2,-6,pawnObj,1,0,0);
-	squares[51] = Square(-3,-6,pawnObj,1,1,0);
-	squares[52] = Square(-4,-6,pawnObj,1,0,0);
-	squares[53] = Square(-5,-6,pawnObj,1,1,0);
-	squares[54] = Square(-6,-6,pawnObj,1,0,0);
-	squares[55] = Square(-7,-6,pawnObj,1,1,0);
+	highlightedSquares[48] = Square(0,-6,pawnObj,1,0,0);
+	highlightedSquares[49] = Square(-1,-6,pawnObj,1,1,0);
+	highlightedSquares[50] = Square(-2,-6,pawnObj,1,0,0);
+	highlightedSquares[51] = Square(-3,-6,pawnObj,1,1,0);
+	highlightedSquares[52] = Square(-4,-6,pawnObj,1,0,0);
+	highlightedSquares[53] = Square(-5,-6,pawnObj,1,1,0);
+	highlightedSquares[54] = Square(-6,-6,pawnObj,1,0,0);
+	highlightedSquares[55] = Square(-7,-6,pawnObj,1,1,0);
 
-	squares[56] = Square(0,-7,rookObj,1,1,0);
-	squares[57] = Square(-1,-7,knightObj,1,0,0);
-	squares[58] = Square(-2,-7,bishopObj,1,1,0);
-	squares[59] = Square(-3,-7,queenObj,1,0,0);
-	squares[60] = Square(-4,-7,kingObj,1,1,0);
-	squares[61] = Square(-5,-7,bishopObj,1,0,0);
-	squares[62] = Square(-6,-7,knightObj,1,1,0);
-    squares[63] = Square(-7,-7,rookObj,1,0,0);
-    squares[64] = Square(-100,-100,0,0,0,0);
+	highlightedSquares[56] = Square(0,-7,rookObj,1,1,0);
+	highlightedSquares[57] = Square(-1,-7,knightObj,1,0,0);
+	highlightedSquares[58] = Square(-2,-7,bishopObj,1,1,0);
+	highlightedSquares[59] = Square(-3,-7,queenObj,1,0,0);
+	highlightedSquares[60] = Square(-4,-7,kingObj,1,1,0);
+	highlightedSquares[61] = Square(-5,-7,bishopObj,1,0,0);
+	highlightedSquares[62] = Square(-6,-7,knightObj,1,1,0);
+    highlightedSquares[63] = Square(-7,-7,rookObj,1,0,0);
+    highlightedSquares[64] = Square(-100,-100,0,0,0,0);
 }
+
 
 void display(void)
 {
@@ -1191,8 +1229,11 @@ void display(void)
 
 	for (int i = 0; i < 64; i++){
 		glPushMatrix();
-			if (squares[i].getHighlight() == 1){
+			if (highlightedSquares[i].getHighlight() == 1){
 				glColor3f(1,0,0);
+			}
+			else if (highlightedSquares[i].getHighlight() == 2){
+				glColor3f(0,1,0);
 			}
 			else{
 				glColor3f(squares[i].getColour(),squares[i].getColour(),squares[i].getColour());
