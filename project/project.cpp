@@ -744,6 +744,130 @@ void whiteKnightCheckForCheck(){
 		}
 }
 
+void blackBishopCheckForCheck(){
+	// for (int i = 0; i < 64; i++)
+	// {
+	// 	highlightedSquares[i].setHighlight(0);
+	// }
+		if( squares[selectpiece].getX() != 0){
+			for (int i = selectpiece + 7; i < 64; i += 7)
+			{
+				if (squares[i].getTeam() == 1 && squares[i].getPiece() == kingObj)
+				{
+					whiteTeamInCheck = true;					
+					break;
+				}
+				if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
+				{
+					break;
+				}
+			}
+
+			for (int i = selectpiece - 9; i > 0; i -= 9)
+			{
+				if (squares[i].getTeam() == 1 && squares[i].getPiece() == kingObj)
+				{
+					whiteTeamInCheck = true;					
+					break;
+				}
+				if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
+				{
+					break;
+				}
+			}
+		}
+
+		if( squares[selectpiece].getX() != -7)
+		{
+			for (int i = selectpiece + 9; i < 64; i += 9)
+			{
+				if (squares[i].getTeam() == 1 && squares[i].getPiece() == kingObj)
+				{
+					whiteTeamInCheck = true;					
+					break;
+				}
+				if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+				{
+					break;
+				}
+			}
+			for (int i = selectpiece - 7; i > 0; i -= 7)
+			{
+				if (squares[i].getTeam() == 1 && squares[i].getPiece() == kingObj)
+				{
+					whiteTeamInCheck = true;					
+					break;
+				}
+				if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+				{
+					break;
+				}
+			}
+		}
+	}
+
+	void whiteBishopCheckForCheck(){
+	// for (int i = 0; i < 64; i++)
+	// {
+	// 	highlightedSquares[i].setHighlight(0);
+	// }
+		if( squares[selectpiece].getX() != 0){
+			for (int i = selectpiece + 7; i < 64; i += 7)
+			{
+				if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
+				{
+					blackTeamInCheck = true;					
+					break;
+				}
+				if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
+				{
+					break;
+				}
+			}
+
+			for (int i = selectpiece - 9; i > 0; i -= 9)
+			{
+				if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
+				{
+					blackTeamInCheck = true;					
+					break;
+				}
+				if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
+				{
+					break;
+				}
+			}
+		}
+
+		if( squares[selectpiece].getX() != -7)
+		{
+			for (int i = selectpiece + 9; i < 64; i += 9)
+			{
+				if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
+				{
+					blackTeamInCheck = true;					
+					break;
+				}
+				if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+				{
+					break;
+				}
+			}
+			for (int i = selectpiece - 7; i > 0; i -= 7)
+			{
+				if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
+				{
+					blackTeamInCheck = true;					
+					break;
+				}
+				if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+				{
+					break;
+				}
+			}
+		}
+	}
+
 void checkPiece(int selectpiece)
 {
 	//black pawn highlight
@@ -1990,6 +2114,12 @@ void checkPiece(int selectpiece)
 		}
 		else if (squares[selectpiece].getPiece() == knightObj && squares[selectpiece].getTeam() == 1){
 			whiteKnightCheckForCheck();
+		}
+		else if (squares[selectpiece].getPiece() == bishopObj && squares[selectpiece].getTeam() == 0){
+			blackBishopCheckForCheck();
+		}
+		else if (squares[selectpiece].getPiece() == bishopObj && squares[selectpiece].getTeam() == 1){
+			whiteBishopCheckForCheck();
 		}
 		if (blackTeamInCheck == true){
 			printf("black team is in check\n");
