@@ -987,9 +987,17 @@ void checkPiece(int selectpiece){
 			squares[selectpiece+8].setHighlight(1);
 			highlightedSquares[selectpiece+8].setHighlight(1);
 		}
+		else if (squares[selectpiece+8].getPiece() != 0 && squares[selectpiece+8].getTeam() == 0){
+			squares[selectpiece+8].setHighlight(2);
+			highlightedSquares[selectpiece+8].setHighlight(2);
+		}
 		if(squares[selectpiece-8].getPiece() == 0){
 			squares[selectpiece-8].setHighlight(1);
 			highlightedSquares[selectpiece-8].setHighlight(1);
+		}
+		else if(squares[selectpiece-8].getPiece() != 0 && squares[selectpiece-8].getTeam() == 0){
+			squares[selectpiece-8].setHighlight(2);
+			highlightedSquares[selectpiece-8].setHighlight(2);
 		}
 
 		if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56){
@@ -997,13 +1005,25 @@ void checkPiece(int selectpiece){
 				squares[selectpiece+7].setHighlight(1);
 				highlightedSquares[selectpiece+7].setHighlight(1);
 			}
+			else if (squares[selectpiece+7].getPiece() != 0  && squares[selectpiece+7].getTeam() == 0){
+				squares[selectpiece+7].setHighlight(2);
+				highlightedSquares[selectpiece+7].setHighlight(2);
+			}
 			if(squares[selectpiece-9].getPiece() == 0){
 				squares[selectpiece-9].setHighlight(1);
 				highlightedSquares[selectpiece-9].setHighlight(1);
 			}
+			else if(squares[selectpiece-9].getPiece() != 0 && squares[selectpiece-9].getTeam() == 0){
+				squares[selectpiece-9].setHighlight(2);
+				highlightedSquares[selectpiece-9].setHighlight(2);
+			}
 			if (squares[selectpiece-1].getPiece() == 0){
 			squares[selectpiece-1].setHighlight(1);
 			highlightedSquares[selectpiece-1].setHighlight(1);
+			}
+			else if (squares[selectpiece-1].getPiece() != 0 && squares[selectpiece-1].getTeam() == 0){
+			squares[selectpiece-1].setHighlight(2);
+			highlightedSquares[selectpiece-1].setHighlight(2);
 			}
 		}
 		
@@ -1012,13 +1032,25 @@ void checkPiece(int selectpiece){
 				squares[selectpiece-7].setHighlight(1);
 				highlightedSquares[selectpiece-7].setHighlight(1);
 			}
+			else if (squares[selectpiece-7].getPiece() != 0 && squares[selectpiece-7].getTeam() == 0){
+				squares[selectpiece-7].setHighlight(2);
+				highlightedSquares[selectpiece-7].setHighlight(2);
+			}
 			if(squares[selectpiece+9].getPiece() == 0){
 				squares[selectpiece+9].setHighlight(1);
 				highlightedSquares[selectpiece+9].setHighlight(1);
 			}
+			else if(squares[selectpiece+9].getPiece() != 0 && squares[selectpiece+9].getTeam() == 0){
+				squares[selectpiece+9].setHighlight(2);
+				highlightedSquares[selectpiece+9].setHighlight(2);
+			}
 			if (squares[selectpiece+1].getPiece() == 0){
 				squares[selectpiece+1].setHighlight(1);
 				highlightedSquares[selectpiece+1].setHighlight(1);
+			}
+			else if (squares[selectpiece+1].getPiece() != 0 && squares[selectpiece+1].getTeam() == 0){
+				squares[selectpiece+1].setHighlight(2);
+				highlightedSquares[selectpiece+1].setHighlight(2);
 			}
 		}
 	}
@@ -1029,9 +1061,17 @@ void checkPiece(int selectpiece){
 			squares[selectpiece+8].setHighlight(1);
 			highlightedSquares[selectpiece+8].setHighlight(1);
 		}
+		else if (squares[selectpiece+8].getPiece() != 0 && squares[selectpiece+8].getTeam() == 1 ){
+			squares[selectpiece+8].setHighlight(2);
+			highlightedSquares[selectpiece+8].setHighlight(2);
+		}
 		if(squares[selectpiece-8].getPiece() == 0){
 			squares[selectpiece-8].setHighlight(1);
 			highlightedSquares[selectpiece-8].setHighlight(1);
+		}
+		else if (squares[selectpiece-8].getPiece() != 0 && squares[selectpiece-8].getTeam() == 1 ){
+			squares[selectpiece-8].setHighlight(2);
+			highlightedSquares[selectpiece-8].setHighlight(2);
 		}
 
 		if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56){
@@ -1039,14 +1079,26 @@ void checkPiece(int selectpiece){
 				squares[selectpiece+7].setHighlight(1);
 				highlightedSquares[selectpiece+7].setHighlight(1);
 			}
+		else if (squares[selectpiece+7].getPiece() != 0 && squares[selectpiece+7].getTeam() == 1 ){
+			squares[selectpiece+7].setHighlight(2);
+			highlightedSquares[selectpiece+7].setHighlight(2);
+		}
 			if(squares[selectpiece-9].getPiece() == 0){
 				squares[selectpiece-9].setHighlight(1);
 				highlightedSquares[selectpiece-9].setHighlight(1);
 			}
+		else if (squares[selectpiece-9].getPiece() != 0 && squares[selectpiece-9].getTeam() == 1 ){
+			squares[selectpiece-9].setHighlight(2);
+			highlightedSquares[selectpiece-9].setHighlight(2);
+		}
 			if (squares[selectpiece-1].getPiece() == 0){
 			squares[selectpiece-1].setHighlight(1);
 			highlightedSquares[selectpiece-1].setHighlight(1);
 			}
+		else if (squares[selectpiece-1].getPiece() != 0 && squares[selectpiece-1].getTeam() == 1 ){
+			squares[selectpiece-1].setHighlight(2);
+			highlightedSquares[selectpiece-1].setHighlight(2);
+		}
 		}
 		
 		if (selectpiece != 7 && selectpiece != 15 && selectpiece != 23 && selectpiece != 31 && selectpiece != 39 && selectpiece != 47 && selectpiece != 55 && selectpiece != 63){
