@@ -15,15 +15,10 @@
 #  include <GL/freeglut.h>
 #endif
 
-//**************
-
 #include <vector>
 #include <string>
 #include <fstream>
 #include<cstdio>
-
-
-//*********
 
 //all variable initialization
 
@@ -64,22 +59,6 @@ int board[8][8];
 
 Square* squares = new Square[65];
 Square* highlightedSquares = new Square[65];
-
-// const int start[8][8] = {rookObj, knightObj, bishopObj, queenObj, kingObj, bishopObj, knightObj, rookObj, pawnObj, 
-//                         pawnObj, pawnObj, pawnObj, pawnObj, pawnObj, pawnObj, pawnObj, 0, 0, 0, 0, 0, 0, 0, 0, 
-//                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -pawnObj,
-//                         -pawnObj, -pawnObj, -pawnObj, -pawnObj, -pawnObj, -pawnObj, -pawnObj, -rookObj, -knightObj, 
-//                         -bishopObj, -queenObj, -kingObj, -bishopObj, -knightObj, -rookObj};
-
-//********************************************************************
-
-// void setupBoard(void){
-//     for (int i = 0; i < 8; i++){
-//         for (int j = 0; j < 8; j++){
-//             board[i][j] = start[i][j];
-//         }
-//     }
-// }
 
 struct coordinate{ //for vertices
 	float x,y,z;
@@ -189,10 +168,6 @@ int loadObject(const char* filename)
 		delete normals[i];
 	return num;	//return with the id
 }
-
-
-
-//********************************************************************
 
 void keyboard(unsigned char key, int xIn, int yIn)
 {
@@ -1251,19 +1226,8 @@ void display(void)
 			// glDisable(GL_COLOR_MATERIAL);
 			glPushMatrix();
 
-				if (squares[i].getTeam() == 0){
-					
+				if (squares[i].getTeam() == 0){	
 					glColor3f(0.3,0.3,0.3);
-					// float m_ambient[4] = {0.24725, 0.1995, 0.0745, 1.0f};
-					// float m_diffuse[4] = {0.75164, 0.60648, 0.22648, 1.0f};
-					// float m_specular[4] = {0.628281, 0.555802, 0.366065, 1.0f};
-					// float m_shine[1] = {0.4};
-
-					// glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, m_ambient);
-					// glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, m_diffuse);
-					// glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, m_specular);
-					// glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, m_shine);
-					
 				}
 				else {
 					glColor3f(0.9,0.9,0.9);
@@ -1329,13 +1293,6 @@ void display(void)
 
 	glDisable(GL_COLOR_MATERIAL);
 
-	
-	// glPushMatrix(); //push board
-    // Board b;
-    // b.drawBoard();
-
-    // glPopMatrix();//pop board
-
     glutSwapBuffers();
 }
 
@@ -1363,10 +1320,6 @@ void myInit(void)
 	rookObj=loadObject("rookblessnew.obj");	//load the pawn.obj file
 	knightObj=loadObject("knightblessnew.obj");	//load the pawn.obj file
 
-    //backface culling
-    glFrontFace(GL_CCW);
-    // glCullFace(GL_BACK);
-    // glEnable(GL_CULL_FACE);
 
 }
 
