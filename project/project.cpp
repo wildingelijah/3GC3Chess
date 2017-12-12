@@ -1997,8 +1997,8 @@ void checkPiece(int selectpiece)
 		if (whiteTeamInCheck == true){
 			printf("white team is in check\n");
 		}
-		
-		
+		blackTeamInCheck = false;
+		whiteTeamInCheck = false;
 		playerTurn += 1;
 		if (camTrack == 0)
 		{
@@ -2482,19 +2482,23 @@ int main(int argc, char **argv)
 	glutCreateWindow("3D Chess"); //creates the window
 								  //below is print out to terminal with all info needed to use program
 	printf("\n-------------------------------------------------------------------------------------------------------------------------\n");
-	printf("\n				     WELCOME TO OUR 3D CHESS \n");
+	printf("\n				     	    WELCOME TO OUR 3D CHESS\n");
 	printf("\n-------------------------------------------------------------------------------------------------------------------------\n");
-	printf("\n                                        Elijah Wilding, wildinge, 400013471\n");
-	printf("                                        Zack Palantzas, palantzz, 400016191\n");
-	printf("                                        Corey Szeto, szetoc, 400025728\n");
-	printf("                                        Aleem Haq, haqau4, 1330201\n");
+	printf("\nElijah Wilding, 	wildinge, 	400013471\n");
+	printf("Zack Palantzas, 	palantzz, 	400016191\n");
+	printf("Corey Szeto, 		szetoc, 	400025728\n");
+	printf("Aleem Haq, 		haqau4, 	1330201\n");
 	printf("\n-------------------------------------------------------------------------------------------------------------------------\n");
 	printf("\nHere is our final project implementation of 3D Chess. Please make sure to read this as it contains some important\n");
 	printf("information. Firstly, we felt as if the graphics aspect of this program was much more important than the actual back end\n");
 	printf("thus we focused more on the look and feel of the project then on actual features such as AI. Secondly, when a player\n");
 	printf("takes their turn the camera flips to the other player's side. We just wanted to bring this up as it is a rather fast \n");
 	printf("flip and did not want to cause confusion. Thirdly, the program has some bugs when it is run on Linux. Running on MacOs\n");
-	printf("and Windows allows the program to run perfectly so it is definitely preferable. \n ");
+	printf("and Windows allows the program to run perfectly so it is definitely preferable. Lastly, due to the extent of the \n ");
+	printf("implementation we didn't have time to implement checkmate but we did implement check as shown by printout to console\n ");
+	printf("when a certain team is in check. Another big plus of our project is that we created the chess pieces ourselves in\n ");
+	printf("Maya and Blender which were then loaded the with an obj loader. Also all of the chess logic was brainstormed, created,\n ");
+	printf("and implemented by us.\n ");
 	printf("\nControls:\n");
 	printf("left mouse click - selects object if correctly hovering over it\n");
 	printf("q, esc - quits program\n");
