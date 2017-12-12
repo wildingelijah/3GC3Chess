@@ -520,6 +520,48 @@ void blackKnightCheckForCheck(){
 		}
 }
 
+void whiteKnightCheckForCheck(){
+		if( squares[selectpiece].getX() != 0){
+			if (squares[selectpiece - 17].getTeam() == 0 && squares[selectpiece-17].getPiece() == kingObj){
+				blackTeamInCheck = true;
+			}
+
+			if (squares[selectpiece + 15].getTeam() == 0 && squares[selectpiece+15].getPiece() == kingObj){
+				blackTeamInCheck = true;
+			}
+		}
+
+		if( squares[selectpiece].getX() != -7){
+			if (squares[selectpiece - 15].getTeam() == 0 && squares[selectpiece- 15].getPiece() == kingObj){
+				blackTeamInCheck = true;
+			}
+
+			if (squares[selectpiece + 17].getTeam() == 0 && squares[selectpiece+17].getPiece() == kingObj){
+				blackTeamInCheck = true;
+			}
+		}
+
+		if (squares[selectpiece].getX() != -6 && squares[selectpiece].getX() != -7) {
+			if (squares[selectpiece - 6].getTeam() == 0 && squares[selectpiece- 6].getPiece() == kingObj){
+				blackTeamInCheck = true;
+			}
+
+			if (squares[selectpiece + 10].getTeam() == 0 && squares[selectpiece+10].getPiece() == kingObj){
+				blackTeamInCheck = true;
+			}
+		}
+
+		if (squares[selectpiece].getX() != 0 && squares[selectpiece].getX() != -1) {
+			if (squares[selectpiece + 6].getTeam() == 0 && squares[selectpiece +6].getPiece() == kingObj){
+				blackTeamInCheck = true;
+			}
+
+			if (squares[selectpiece - 10].getTeam() == 0 && squares[selectpiece - 10].getPiece() == kingObj){
+				blackTeamInCheck = true;
+			}
+		}
+}
+
 void checkPiece(int selectpiece)
 {
 	//black pawn highlight
@@ -1754,6 +1796,9 @@ void checkPiece(int selectpiece)
 		}
 		else if (squares[selectpiece].getPiece() == knightObj && squares[selectpiece].getTeam() == 0){
 			blackKnightCheckForCheck();
+		}
+		else if (squares[selectpiece].getPiece() == knightObj && squares[selectpiece].getTeam() == 1){
+			whiteKnightCheckForCheck();
 		}
 		if (blackTeamInCheck == true){
 			printf("black team is in check\n");
