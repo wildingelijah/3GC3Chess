@@ -193,9 +193,9 @@ void keyboard(unsigned char key, int xIn, int yIn)
 }
 
 void blackPawnCheckForCheck(){
-	for (int i = 0; i < 64; i++){
-            highlightedSquares[i].setHighlight(0);
-        }
+	// for (int i = 0; i < 64; i++){
+    //         highlightedSquares[i].setHighlight(0);
+    //     }
 		if( squares[selectpiece].getX() == 0){
 			if (squares[selectpiece+9].getTeam() == 1 
 			&& squares[selectpiece+9].getPiece() == kingObj){
@@ -221,9 +221,9 @@ void blackPawnCheckForCheck(){
 }
 
 void blackQueenCheckForCheck(){
-	for (int i = 0; i < 64; i++){
-		highlightedSquares[i].setHighlight(0);
-	}
+	// for (int i = 0; i < 64; i++){
+	// 	highlightedSquares[i].setHighlight(0);
+	// }
 	for (int i = selectpiece + 8; i < 64; i += 8)
 	{
 		if (squares[i].getPiece() != kingObj && squares[i].getPiece() != 0)
@@ -350,9 +350,9 @@ void blackQueenCheckForCheck(){
 }
 
 void whiteQueenCheckForCheck(){
-	for (int i = 0; i < 64; i++){
-		highlightedSquares[i].setHighlight(0);
-	}
+	// for (int i = 0; i < 64; i++){
+	// 	highlightedSquares[i].setHighlight(0);
+	// }
 	for (int i = selectpiece + 8; i < 64; i += 8)
 	{
 		if (squares[i].getPiece() != kingObj && squares[i].getPiece() != 0)
@@ -479,7 +479,7 @@ void whiteQueenCheckForCheck(){
 }
 
 void blackKnightCheckForCheck(){
-		if( squares[selectpiece].getX() != 0){ //far right
+		if( squares[selectpiece].getX() != 0){
 			if (squares[selectpiece - 17].getTeam() == 1 && squares[selectpiece-17].getPiece() == kingObj){
 				whiteTeamInCheck = true;
 			}
@@ -489,7 +489,7 @@ void blackKnightCheckForCheck(){
 			}
 		}
 
-		if( squares[selectpiece].getX() != -7){ //far right
+		if( squares[selectpiece].getX() != -7){
 			if (squares[selectpiece - 15].getTeam() == 1 && squares[selectpiece- 15].getPiece() == kingObj){
 				whiteTeamInCheck = true;
 			}
@@ -525,6 +525,10 @@ void checkPiece(int selectpiece)
 	//black pawn highlight
 	if (squares[selectpiece].getPiece() == pawnObj && playerTurn % 2 == 0 && squares[selectpiece].getTeam() == 0)
 	{
+		for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		piecemoved = false;
 		for (int i = 0; i < 64; i++)
 		{
@@ -569,6 +573,10 @@ void checkPiece(int selectpiece)
 	//white pawn highlight
 	else if (squares[selectpiece].getPiece() == pawnObj && playerTurn % 2 == 1 && squares[selectpiece].getTeam() == 1)
 	{
+		for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		piecemoved = false;
 		for (int i = 0; i < 64; i++)
 		{
@@ -614,6 +622,10 @@ void checkPiece(int selectpiece)
 	//black rook
 	else if (squares[selectpiece].getPiece() == rookObj && playerTurn % 2 == 0 && squares[selectpiece].getTeam() == 0)
 	{
+		for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		for (int i = selectpiece + 8; i < 64; i += 8)
 		{
 			if (squares[i].getPiece() == 0)
@@ -698,6 +710,10 @@ void checkPiece(int selectpiece)
 	//white rook
 	else if (squares[selectpiece].getPiece() == rookObj && playerTurn % 2 == 1 && squares[selectpiece].getTeam() == 1)
 	{
+		for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		for (int i = selectpiece + 8; i < 64; i += 8)
 		{
 			if (squares[i].getPiece() == 0)
@@ -783,6 +799,11 @@ void checkPiece(int selectpiece)
 	//black bishop
 	else if (squares[selectpiece].getPiece() == bishopObj && playerTurn % 2 == 0 && squares[selectpiece].getTeam() == 0)
 	{
+
+	for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56)
 		{
 			for (int i = selectpiece + 7; i < 64; i += 7)
@@ -876,6 +897,10 @@ void checkPiece(int selectpiece)
 	//white bishop
 	else if (squares[selectpiece].getPiece() == bishopObj && playerTurn % 2 == 1 && squares[selectpiece].getTeam() == 1)
 	{
+		for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56)
 		{
 			for (int i = selectpiece + 7; i < 64; i += 7)
@@ -969,6 +994,10 @@ void checkPiece(int selectpiece)
 	//white queen
 	else if (squares[selectpiece].getPiece() == queenObj && playerTurn % 2 == 1 && squares[selectpiece].getTeam() == 1)
 	{
+		for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		for (int i = selectpiece + 8; i < 64; i += 8)
 		{
 			if (squares[i].getPiece() == 0)
@@ -1137,6 +1166,10 @@ void checkPiece(int selectpiece)
 	//black queen
 	else if (squares[selectpiece].getPiece() == queenObj && playerTurn % 2 == 0 && squares[selectpiece].getTeam() == 0)
 	{
+		for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		for (int i = selectpiece + 8; i < 64; i += 8)
 		{
 			if (squares[i].getPiece() == 0)
@@ -1305,6 +1338,10 @@ void checkPiece(int selectpiece)
 	//black knight
 	else if (squares[selectpiece].getPiece() == knightObj && playerTurn % 2 == 0 && squares[selectpiece].getTeam() == 0)
 	{
+		for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56)
 		{
 			if (squares[selectpiece - 17].getPiece() == 0)
@@ -1401,6 +1438,10 @@ void checkPiece(int selectpiece)
 	//white knight
 	else if (squares[selectpiece].getPiece() == knightObj && playerTurn % 2 == 1 && squares[selectpiece].getTeam() == 1)
 	{
+		for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56)
 		{
 			if (squares[selectpiece - 17].getPiece() == 0)
@@ -1501,6 +1542,10 @@ void checkPiece(int selectpiece)
 	//white king
 	else if (squares[selectpiece].getPiece() == kingObj && playerTurn % 2 == 1 && squares[selectpiece].getTeam() == 1)
 	{
+		for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		if (squares[selectpiece + 8].getPiece() == 0)
 		{
 			squares[selectpiece + 8].setHighlight(1);
@@ -1594,6 +1639,10 @@ void checkPiece(int selectpiece)
 	//black king
 	else if (squares[selectpiece].getPiece() == kingObj && playerTurn % 2 == 0 && squares[selectpiece].getTeam() == 0)
 	{
+		for (int i = 0; i < 64; i++)
+	{
+		highlightedSquares[i].setHighlight(0);
+	}
 		if (squares[selectpiece + 8].getPiece() == 0)
 		{
 			squares[selectpiece + 8].setHighlight(1);
