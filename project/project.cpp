@@ -44,7 +44,7 @@ int xmouse = 0;
 int ymouse = 0;
 
 float bOff = 1;
-int selected = 32;
+int selected = 64;
 int selectpiece = 0;
 bool intersect = false;
 
@@ -178,18 +178,6 @@ int loadObject(const char *filename)
 	for (int i = 0; i < normals.size(); i++)
 		delete normals[i];
 	return num; //return with the id
-}
-
-void keyboard(unsigned char key, int xIn, int yIn)
-{
-	switch (key)
-	{
-	//exit functionality
-	case 'q':
-	case 27:
-		exit(0);
-		break;
-	}
 }
 
 void blackPawnCheckForCheck(){
@@ -2439,6 +2427,28 @@ void makeHighlightedBoard(void)
 	highlightedSquares[64] = Square(-100, -100, 0, 0, 0, 0);
 }
 
+void keyboard(unsigned char key, int xIn, int yIn)
+{
+	switch (key)
+	{
+	//exit functionality
+	case 'q':
+	case 27:
+		exit(0);
+		break;
+
+	case 'r':
+		makeBoard();
+		makeHighlightedBoard();
+		camTrack = 1;
+		playerTurn = 1;
+		selected = 64;
+		selectpiece = 0;
+		intersect = false;
+		break;
+	}
+}
+
 void display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -2622,16 +2632,19 @@ int main(int argc, char **argv)
 	printf("\nHere is our final project implementation of 3D Chess. Please make sure to read this as it contains some important\n");
 	printf("information. Firstly, we felt as if the graphics aspect of this program was much more important than the actual back end\n");
 	printf("thus we focused more on the look and feel of the project then on actual features such as AI. Secondly, when a player\n");
-	printf("takes their turn the camera flips to the other player's side. We just wanted to bring this up as it is a rather fast \n");
+	printf("takes their turn the camera flips to the other player's side. We just wanted to bring this up as it is a rather fast\n");
 	printf("flip and did not want to cause confusion. Thirdly, the program has some bugs when it is run on Linux. Running on MacOs\n");
-	printf("and Windows allows the program to run perfectly so it is definitely preferable. Lastly, due to the extent of the \n ");
-	printf("implementation we didn't have time to implement checkmate but we did implement check as shown by printout to console\n ");
-	printf("when a certain team is in check. Another big plus of our project is that we created the chess pieces ourselves in\n ");
-	printf("Maya and Blender which were then loaded the with an obj loader. Also all of the chess logic was brainstormed, created,\n ");
-	printf("and implemented by us.\n ");
+	printf("and Windows allows the program to run perfectly so it is definitely preferable. Fourthly, due to the extent of the\n");
+	printf("implementation we didn't have time to implement checkmate but we did implement check as shown by printout to console\n");
+	printf("when a certain team is in check. Another big plus of our project is that we created the chess pieces ourselves in\n");
+	printf("Maya and Blender which were then loaded the with an obj loader. Also all of the chess logic was brainstormed, created,\n");
+	printf("and implemented by us. Lastly, we tried to implement a text display overolay however when we tried it royally screwed\n");
+	printf("up our ray casting and we decided a console text print out was better as it allowed our ray casting to function correctly.\n");
 	printf("\nControls:\n");
 	printf("left mouse click - selects object if correctly hovering over it\n");
 	printf("q, esc - quits program\n");
+	printf("r - resets board to start new game\n");
+	printf("\nThanks for a great semester! We all loved this course.\n ");
 	printf("-------------------------------------------------------------------------------------------------------------------------\n\n");
 	glutDisplayFunc(display); //registers "display" as the display callback function
 	glutKeyboardFunc(keyboard);
