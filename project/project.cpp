@@ -23,8 +23,8 @@
 //all variable initialization
 
 float camPos[] = {10, 15, 10};
-float pl1Cam[] = {-3.5, 17, 10};
-float pl2Cam[] = {-3.5, 17, -17};
+float pl1Cam[] = {-3.5, 19, 10};
+float pl2Cam[] = {-3.5, 19, -17};
 
 bool whiteTeamInCheck = false;
 bool blackTeamInCheck = false;
@@ -181,9 +181,7 @@ int loadObject(const char *filename)
 }
 
 void blackPawnCheckForCheck(){
-	// for (int i = 0; i < 64; i++){
-    //         highlightedSquares[i].setHighlight(0);
-    //     }
+	//checks if plack bawn causes check
 		if( squares[selectpiece].getX() == 0){
 			if (squares[selectpiece+9].getTeam() == 1 
 			&& squares[selectpiece+9].getPiece() == kingObj){
@@ -209,6 +207,7 @@ void blackPawnCheckForCheck(){
 }
 
 void whitePawnCheckForCheck(){
+	//checks if white pawn causes check
 	for (int i = 0; i < 64; i++){
             highlightedSquares[i].setHighlight(0);
         }
@@ -236,8 +235,8 @@ void whitePawnCheckForCheck(){
 		}
 }
 
-//black rook
 void blackRookCheckForCheck(){
+	//checks if black rook causes check
 	for (int i = selectpiece + 8; i < 64; i += 8)
 	{
 		if (squares[i].getPiece() == 0)
@@ -311,22 +310,18 @@ void blackRookCheckForCheck(){
 		}
 	}
 }
-//white rook
+
 void whiteRookCheckForCheck(){
-for (int i = selectpiece + 8; i < 64; i += 8)
-	{
-	if (squares[i].getPiece() == 0)
-	{
-	}
-	else if (squares[i].getPiece() != 0)
-		{
+	//checks if black rook causes check
+	for (int i = selectpiece + 8; i < 64; i += 8){
+		if (squares[i].getPiece() != 0){}
 		if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
 		{
 			blackTeamInCheck = true;
 		}
 		break;
 	}
-}
+
 for (int i = selectpiece - 8; i > 0; i -= 8)
 {
 	if (squares[i].getPiece() == 0)
@@ -391,9 +386,7 @@ if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 
 
 
 void blackQueenCheckForCheck(){
-	// for (int i = 0; i < 64; i++){
-	// 	highlightedSquares[i].setHighlight(0);
-	// }
+	// checks black queen to see if it causes check
 	for (int i = selectpiece + 8; i < 64; i += 8)
 	{
 		if (squares[i].getPiece() != kingObj && squares[i].getPiece() != 0)
@@ -520,9 +513,7 @@ void blackQueenCheckForCheck(){
 }
 
 void whiteQueenCheckForCheck(){
-	// for (int i = 0; i < 64; i++){
-	// 	highlightedSquares[i].setHighlight(0);
-	// }
+	// checks white queen to see if it causes check
 	for (int i = selectpiece + 8; i < 64; i += 8)
 	{
 		if (squares[i].getPiece() != kingObj && squares[i].getPiece() != 0)
@@ -649,6 +640,7 @@ void whiteQueenCheckForCheck(){
 }
 
 void blackKnightCheckForCheck(){
+	// checks black knight to see if it causes check
 		if( squares[selectpiece].getX() != 0){
 			if (squares[selectpiece - 17].getTeam() == 1 && squares[selectpiece-17].getPiece() == kingObj){
 				whiteTeamInCheck = true;
@@ -691,6 +683,7 @@ void blackKnightCheckForCheck(){
 }
 
 void whiteKnightCheckForCheck(){
+	// checks white knight to see if it causes check
 		if( squares[selectpiece].getX() != 0){
 			if (squares[selectpiece - 17].getTeam() == 0 && squares[selectpiece-17].getPiece() == kingObj){
 				blackTeamInCheck = true;
@@ -733,10 +726,7 @@ void whiteKnightCheckForCheck(){
 }
 
 void blackBishopCheckForCheck(){
-	// for (int i = 0; i < 64; i++)
-	// {
-	// 	highlightedSquares[i].setHighlight(0);
-	// }
+	// checks black bishop to see if it causes check
 		if( squares[selectpiece].getX() != 0){
 			for (int i = selectpiece + 7; i < 64; i += 7)
 			{
@@ -794,68 +784,66 @@ void blackBishopCheckForCheck(){
 		}
 	}
 
-	void whiteBishopCheckForCheck(){
-	// for (int i = 0; i < 64; i++)
-	// {
-	// 	highlightedSquares[i].setHighlight(0);
-	// }
-		if( squares[selectpiece].getX() != 0){
-			for (int i = selectpiece + 7; i < 64; i += 7)
+void whiteBishopCheckForCheck(){
+	// checks white bishop to see if it causes check
+	if( squares[selectpiece].getX() != 0){
+		for (int i = selectpiece + 7; i < 64; i += 7)
+		{
+			if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
 			{
-				if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
-				{
-					blackTeamInCheck = true;					
-					break;
-				}
-				if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
-				{
-					break;
-				}
+				blackTeamInCheck = true;					
+				break;
 			}
-
-			for (int i = selectpiece - 9; i > 0; i -= 9)
+			if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
 			{
-				if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
-				{
-					blackTeamInCheck = true;					
-					break;
-				}
-				if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
-				{
-					break;
-				}
+				break;
 			}
 		}
 
-		if( squares[selectpiece].getX() != -7)
+		for (int i = selectpiece - 9; i > 0; i -= 9)
 		{
-			for (int i = selectpiece + 9; i < 64; i += 9)
+			if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
 			{
-				if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
-				{
-					blackTeamInCheck = true;					
-					break;
-				}
-				if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
-				{
-					break;
-				}
+				blackTeamInCheck = true;					
+				break;
 			}
-			for (int i = selectpiece - 7; i > 0; i -= 7)
+			if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
 			{
-				if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
-				{
-					blackTeamInCheck = true;					
-					break;
-				}
-				if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
-				{
-					break;
-				}
+				break;
 			}
 		}
 	}
 
+	if( squares[selectpiece].getX() != -7)
+	{
+		for (int i = selectpiece + 9; i < 64; i += 9)
+		{
+			if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
+			{
+				blackTeamInCheck = true;					
+				break;
+			}
+			if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+			{
+				break;
+			}
+		}
+		for (int i = selectpiece - 7; i > 0; i -= 7)
+		{
+			if (squares[i].getTeam() == 0 && squares[i].getPiece() == kingObj)
+			{
+				blackTeamInCheck = true;					
+				break;
+			}
+			if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+			{
+				break;
+			}
+		}
+	}
+}
+
+//below checks piece and highlights its available moves including hightlighting of pieces it can take out
 void checkPiece(int selectpiece)
 {
 	//black pawn highlight
@@ -1786,7 +1774,7 @@ void checkPiece(int selectpiece)
 				highlightedSquares[selectpiece - 17].setHighlight(1);
 			}
 			else if (squares[selectpiece - 17].getPiece() != 0 && squares[selectpiece - 17].getTeam() == 0)
-			{ //and condition?
+			{
 				squares[selectpiece - 17].setHighlight(2);
 				highlightedSquares[selectpiece - 17].setHighlight(2);
 			}
@@ -2069,7 +2057,7 @@ void checkPiece(int selectpiece)
 		}
 	}
 
-	//piece moving
+	//below handles piece moving such if a highlighted square is selected the piece will move there
 	if ((highlightedSquares[selectpiece].getHighlight() == 1 || highlightedSquares[selectpiece].getHighlight() == 2) && squares[currentPiece].getPiece() != 0)
 	{
 		squares[selectpiece].setPiece(squares[currentPiece].getPiece());
@@ -2079,6 +2067,7 @@ void checkPiece(int selectpiece)
 		squares[currentPiece].setPiece(0);
 		squares[currentPiece].setTeam(2);
 
+		//below checks for check and if so it sets a variable to true
 		if (squares[selectpiece].getPiece() == pawnObj && squares[selectpiece].getTeam() == 0){
 			blackPawnCheckForCheck();
 		}
@@ -2109,15 +2098,19 @@ void checkPiece(int selectpiece)
 		else if (squares[selectpiece].getPiece() == bishopObj && squares[selectpiece].getTeam() == 1){
 			whiteBishopCheckForCheck();
 		}
+		//checks variable and prints to console if check is true
 		if (blackTeamInCheck == true){
-			printf("black team is in check\n");
+			printf("Black team is in check\n");
 		}
 		if (whiteTeamInCheck == true){
-			printf("white team is in check\n");
+			printf("White team is in check\n");
 		}
+		//returns variables to false as other team moves out of check
 		blackTeamInCheck = false;
 		whiteTeamInCheck = false;
+		//player turn tracker
 		playerTurn += 1;
+		//changes camera view
 		if (camTrack == 0)
 		{
 			camTrack = 1;
@@ -2126,6 +2119,7 @@ void checkPiece(int selectpiece)
 		{
 			camTrack = 0;
 		}
+		//resets highlighted squares
 		for (int i = 0; i < 64; i++)
 		{
 			highlightedSquares[i].setHighlight(0);
@@ -2134,14 +2128,13 @@ void checkPiece(int selectpiece)
 		piecemoved = true;
 		selectpiece = 64;
 
-		//pn;layerTurn = !playerTur
 	}
 }
 
 //valid intersection calculations for our rays
+//ray casting
 void interCalc()
 {
-
 	//plus 40 to x if player 1 and minus 40 if player 2
 	int xmousetemp = xmouse + 40;
 	if (camTrack == 1)
@@ -2217,6 +2210,7 @@ void selectedObj(int type)
 	//wireframe scaling
 	float wire = 0.5;
 
+	//draws actual wireframe
 	glBegin(GL_LINES);
 	glVertex3f(-wire, -wire, -wire);
 	glVertex3f(-wire, wire, -wire);
@@ -2254,7 +2248,6 @@ void selectedObj(int type)
 //handles mouse interaction and passes values to ray calculations
 void mouse(int btn, int state, int x, int y)
 {
-
 	xmouse = x;
 	ymouse = 800 - y;
 
@@ -2270,11 +2263,14 @@ void mouse(int btn, int state, int x, int y)
 	interCalc();
 }
 
+//handles redisplaying
 void FPS(int val)
 {
 	glutPostRedisplay();
 	glutTimerFunc(17, FPS, 0);
 }
+
+//makes starting board with everything in correct positions
 void makeBoard(void)
 {
 	squares[0] = Square(0, 0, rookObj, 0, 0, 0);
@@ -2351,6 +2347,7 @@ void makeBoard(void)
 	squares[64] = Square(-100, -100, 0, 0, 0, 0);
 }
 
+//highlighted board that tracks the states of highlighted places
 void makeHighlightedBoard(void)
 {
 	highlightedSquares[0] = Square(0, 0, rookObj, 0, 0, 0);
@@ -2437,6 +2434,7 @@ void keyboard(unsigned char key, int xIn, int yIn)
 		exit(0);
 		break;
 
+	//reset functionality
 	case 'r':
 		makeBoard();
 		makeHighlightedBoard();
@@ -2465,10 +2463,12 @@ void display(void)
 		gluLookAt(pl2Cam[0], pl2Cam[1], pl2Cam[2], -3.5, 0, -3.5, 0, 1, 0);
 	}
 
+	
 	glEnable(GL_COLOR_MATERIAL);
 
 	for (int i = 0; i < 64; i++)
 	{
+		//color of highlighting, red for empty available space, green for space of enemy piece, if neither than normal coloured
 		glPushMatrix();
 		if (highlightedSquares[i].getHighlight() == 1)
 		{
@@ -2482,6 +2482,7 @@ void display(void)
 		{
 			glColor3f(squares[i].getColour(), squares[i].getColour(), squares[i].getColour());
 		}
+		//draws board
 		glScalef(1, 0.40, 1);
 		glTranslatef(squares[i].getX(), 0, squares[i].getZ());
 		glutSolidCube(1);
@@ -2493,6 +2494,7 @@ void display(void)
 			// glDisable(GL_COLOR_MATERIAL);
 			glPushMatrix();
 
+			//piece colouring
 			if (squares[i].getTeam() == 0)
 			{
 				glColor3f(0.3, 0.3, 0.3);
@@ -2503,10 +2505,13 @@ void display(void)
 			}
 			glTranslatef(squares[i].getX(), 0.3, squares[i].getZ());
 			glScalef(1.5, 1.5, 1.5);
+
+			//rotates white pieces so they face correctly
 			if (squares[i].getTeam() == 1)
 			{
 				glRotatef(180, 0, 1, 0);
 			}
+			//draws pieces
 			glCallList(squares[i].getPiece());
 			glPopMatrix();
 		}
@@ -2514,10 +2519,12 @@ void display(void)
 
 	selectedObj(selected);
 
+	//teapot rotation variables
 	teapotangle++;
 	teapot2angle++;
 	teapot2angle++;
 
+	//below handles all the teapot transformation and drawing
 	glPushMatrix();
 		glTranslatef(-3.5, 1, -3.5);
 		glPushMatrix();
@@ -2592,6 +2599,7 @@ void myInit(void)
 	glClearColor(0.8, 0.8, 1, 1);
 	glColor3f(1, 1, 1);
 
+	//lighting properties
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
@@ -2603,6 +2611,7 @@ void myInit(void)
 	glLoadIdentity();
 	gluPerspective(45, 1, 1, 400);
 
+	//obj loading
 	kingObj = loadObject("kingblessnew.obj");	 //load the king.obj file
 	pawnObj = loadObject("pawnblessnew.obj");	 //load the pawn.obj file
 	bishopObj = loadObject("bishopblessnew.obj"); //load the king.obj file
@@ -2620,7 +2629,7 @@ int main(int argc, char **argv)
 	glutInitWindowSize(1000, 750);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("3D Chess"); //creates the window
-								  //below is print out to terminal with all info needed to use program
+	//below is print out to terminal with all info needed to use program
 	printf("\n-------------------------------------------------------------------------------------------------------------------------\n");
 	printf("\n				     	    WELCOME TO OUR 3D CHESS\n");
 	printf("\n-------------------------------------------------------------------------------------------------------------------------\n");
