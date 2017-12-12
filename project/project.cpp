@@ -26,6 +26,9 @@ float camPos[] = {10, 15, 10};
 float pl1Cam[] = {-3.5, 17, 10};
 float pl2Cam[] = {-3.5, 17, -17};
 
+bool whiteTeamInCheck = false;
+bool blackTeamInCheck = false;
+
 int camTrack = 1;
 
 bool piecemoved = false;
@@ -186,18 +189,292 @@ void keyboard(unsigned char key, int xIn, int yIn)
 	case 27:
 		exit(0);
 		break;
+	}
+}
 
-	case 'w':
-		if (camTrack == 0)
-		{
-			camTrack = 1;
+void blackPawnCheckForCheck(){
+	for (int i = 0; i < 64; i++){
+            highlightedSquares[i].setHighlight(0);
+        }
+		if( squares[selectpiece].getX() == 0){
+			if (squares[selectpiece+9].getTeam() == 1 
+			&& squares[selectpiece+9].getPiece() == kingObj){
+				whiteTeamInCheck = true;
+			}
 		}
-		else
-		{
-			camTrack = 0;
+		if(squares[selectpiece].getX() == -7){
+			if (squares[selectpiece+7].getTeam() == 1
+			&& squares[selectpiece+7].getPiece() == kingObj){
+				whiteTeamInCheck = true;
+			}
 		}
-		glutPostRedisplay();
-		break;
+		if(squares[selectpiece].getX() != -7 && squares[selectpiece].getX() != 0){
+			if (squares[selectpiece+7].getTeam() == 1
+			&& squares[selectpiece+7].getPiece() == kingObj){
+				whiteTeamInCheck = true;
+			}
+			if (squares[selectpiece+9].getTeam() == 1 
+			&& squares[selectpiece+9].getPiece() == kingObj){
+				whiteTeamInCheck = true;
+			}
+		}
+}
+
+void blackQueenCheckForCheck(){
+	for (int i = 0; i < 64; i++){
+		highlightedSquares[i].setHighlight(0);
+	}
+	for (int i = selectpiece + 8; i < 64; i += 8)
+	{
+		if (squares[i].getPiece() != kingObj && squares[i].getPiece() != 0)
+		{
+			break;
+		}
+		else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 1)
+		{
+			whiteTeamInCheck = true;
+		}
+	}
+	for (int i = selectpiece - 8; i > 0; i -= 8)
+	{
+		if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+		{
+			break;
+		}
+		else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 1)
+		{
+			whiteTeamInCheck = true;
+		}
+	}
+
+	if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56)
+	{
+		for (int i = selectpiece - 1; i > 0; i--)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 1)
+			{
+				whiteTeamInCheck = true;
+			}
+			if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
+			{
+				break;
+			}
+		}
+
+		for (int i = selectpiece + 7; i < 64; i += 7)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 1)
+			{
+				whiteTeamInCheck = true;
+			}
+			if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
+			{
+				break;
+			}
+		}
+
+		for (int i = selectpiece - 9; i > 0; i -= 9)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 1)
+			{
+				whiteTeamInCheck = true;
+			}
+			if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
+			{
+				break;
+			}
+		}
+	}
+
+	if (selectpiece != 7 && selectpiece != 15 && selectpiece != 23 && selectpiece != 31 && selectpiece != 39 && selectpiece != 47 && selectpiece != 55 && selectpiece != 63)
+	{
+		for (int i = selectpiece + 1; i < 64; i++)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 1)
+			{
+				whiteTeamInCheck = true;
+			}
+			if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+			{
+				break;
+			}
+		}
+
+		for (int i = selectpiece + 9; i < 64; i += 9)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 1)
+			{
+				whiteTeamInCheck = true;
+			}
+			if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+			{
+				break;
+			}
+		}
+		for (int i = selectpiece - 7; i > 0; i -= 7)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 1)
+			{
+				whiteTeamInCheck = true;
+			}
+			if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+			{
+				break;
+			}
+		}
+	}
+}
+
+void whiteQueenCheckForCheck(){
+	for (int i = 0; i < 64; i++){
+		highlightedSquares[i].setHighlight(0);
+	}
+	for (int i = selectpiece + 8; i < 64; i += 8)
+	{
+		if (squares[i].getPiece() != kingObj && squares[i].getPiece() != 0)
+		{
+			break;
+		}
+		else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 0)
+		{
+			blackTeamInCheck = true;
+		}
+	}
+	for (int i = selectpiece - 8; i > 0; i -= 8)
+	{
+		if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+		{
+			break;
+		}
+		else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 0)
+		{
+			blackTeamInCheck = true;
+		}
+	}
+
+	if (selectpiece != 0 && selectpiece != 8 && selectpiece != 16 && selectpiece != 24 && selectpiece != 32 && selectpiece != 40 && selectpiece != 48 && selectpiece != 56)
+	{
+		for (int i = selectpiece - 1; i > 0; i--)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 0)
+			{
+				blackTeamInCheck = true;
+			}
+			if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
+			{
+				break;
+			}
+		}
+
+		for (int i = selectpiece + 7; i < 64; i += 7)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 0)
+			{
+				blackTeamInCheck = true;
+			}
+			if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
+			{
+				break;
+			}
+		}
+
+		for (int i = selectpiece - 9; i > 0; i -= 9)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 0)
+			{
+				blackTeamInCheck = true;
+			}
+			if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56)
+			{
+				break;
+			}
+		}
+	}
+
+	if (selectpiece != 7 && selectpiece != 15 && selectpiece != 23 && selectpiece != 31 && selectpiece != 39 && selectpiece != 47 && selectpiece != 55 && selectpiece != 63)
+	{
+		for (int i = selectpiece + 1; i < 64; i++)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 0)
+			{
+				blackTeamInCheck = true;
+			}
+			if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+			{
+				break;
+			}
+		}
+
+		for (int i = selectpiece + 9; i < 64; i += 9)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 0)
+			{
+				blackTeamInCheck = true;
+			}
+			if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+			{
+				break;
+			}
+		}
+		for (int i = selectpiece - 7; i > 0; i -= 7)
+		{
+			if (squares[i].getPiece() != 0 && squares[i].getPiece() != kingObj)
+			{
+				break;
+			}
+			else if (squares[i].getPiece() == kingObj && squares[i].getTeam() == 0)
+			{
+				blackTeamInCheck = true;
+			}
+			if (i == 7 || i == 15 || i == 23 || i == 31 || i == 39 || i == 47 || i == 55 || i == 63)
+			{
+				break;
+			}
+		}
 	}
 }
 
@@ -291,9 +568,6 @@ void checkPiece(int selectpiece)
 			}
 		}
 	}
-
-	//rook highlight
-	//squares[selectpiece].getPiece() == pawnObj && playerTurn%2==0 && squares[selectpiece].getTeam() == 0
 
 	//black rook
 	else if (squares[selectpiece].getPiece() == rookObj && playerTurn % 2 == 0 && squares[selectpiece].getTeam() == 0)
@@ -1374,8 +1648,27 @@ void checkPiece(int selectpiece)
 		squares[selectpiece].setPiece(squares[currentPiece].getPiece());
 		squares[selectpiece].setTeam(squares[currentPiece].getTeam());
 		//squares[selectpiece].setPiece(squares[currentPiece].getPiece());
+		
 		squares[currentPiece].setPiece(0);
 		squares[currentPiece].setTeam(2);
+
+		if (squares[selectpiece].getPiece() == pawnObj && squares[selectpiece].getTeam() == 0){
+			blackPawnCheckForCheck();
+		}
+		else if (squares[selectpiece].getPiece() == queenObj && squares[selectpiece].getTeam() == 0){
+			blackQueenCheckForCheck();
+		}
+		else if (squares[selectpiece].getPiece() == queenObj && squares[selectpiece].getTeam() == 1){
+			whiteQueenCheckForCheck();
+		}
+		if (blackTeamInCheck == true){
+			printf("black team is in check\n");
+		}
+		if (whiteTeamInCheck == true){
+			printf("white team is in check\n");
+		}
+		
+		
 		playerTurn += 1;
 		if (camTrack == 0)
 		{
@@ -1872,10 +2165,9 @@ int main(int argc, char **argv)
 	printf("takes their turn the camera flips to the other player's side. We just wanted to bring this up as it is a rather fast \n");
 	printf("flip and did not want to cause confusion. Thirdly, the program has some bugs when it is run on Linux. Running on MacOs\n");
 	printf("and Windows allows the program to run perfectly so it is definitely preferable. \n ");
-	printf("\nKey Control Command List :\n");
-	printf("*PLEASE PAY ATTENTION TO CAPITAL LETTERS*");
+	printf("\nControls:\n");
 	printf("left mouse click - selects object if correctly hovering over it\n");
-	printf("right mouse click - deletes the object that is currently hovered over or if hovering over none, deletes selected object\n");
+	printf("q, esc - quits program\n");
 	printf("-------------------------------------------------------------------------------------------------------------------------\n\n");
 	glutDisplayFunc(display); //registers "display" as the display callback function
 	glutKeyboardFunc(keyboard);
